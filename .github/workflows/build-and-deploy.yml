@@ -1,0 +1,36 @@
+name: Build and deploy ligazpp.ru
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: SITE_URL='https://ligazpp.ru' npx eleventy
+
+      - name: Publish to gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages
+          git worktree add --detach /tmp/site-build origin/gh-pages
+          rm -rf /tmp/site-build/*
+          cp -a _site/. /tmp/site-build/
+          git -C /tmp/site-build add -A
+          git -C /tmp/site-build -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Deploy ligazpp.ru $(date -u +'%Y-%m-%d %H:%M')"
+          git -C /tmp/site-build push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:gh-pages

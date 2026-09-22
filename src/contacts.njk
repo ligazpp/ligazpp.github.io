@@ -1,0 +1,79 @@
+---
+layout: layout.njk
+title: Контакты
+description: "Свяжитесь с «Лигой защитников потребителей» в Белгороде: телефоны, электронная почта, адрес офиса и график работы."
+active: contacts
+---
+
+<section class="section">
+    <div class="container">
+
+        <header class="page-header">
+            <h1 class="page-header__title">Контакты</h1>
+            <p class="page-header__subtitle">Свяжитесь с нами удобным для вас способом</p>
+        </header>
+
+        <div class="grid grid--2">
+
+            <div class="card card--article">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h2 class="card__title">Звоните</h2>
+                </div>
+                <div class="card__content">
+                    <p><strong>Телефон:</strong> <a href="tel:{{ site.phone1 }}" itemprop="telephone">{{ site.phone1Display }}</a></p>
+                    <p><strong>Телефон:</strong> <a href="tel:{{ site.phone2 }}" itemprop="telephone">{{ site.phone2Display }}</a></p>
+                    <p>Звонки принимаются в будние дни с 9:00 до 17:30</p>
+                </div>
+            </div>
+
+            <div class="card card--article">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h2 class="card__title">Пишите</h2>
+                </div>
+                <div class="card__content">
+                    <p><strong>Электронная почта:</strong> <a href="mailto:{{ site.email }}" itemprop="email">{{ site.email }}</a></p>
+                    <p>Отправляйте письма с вопросами, документами. Отвечаем в течение 1-2 рабочих дней.</p>
+                </div>
+            </div>
+
+            <div class="card card--article">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h2 class="card__title">Приходите</h2>
+                </div>
+                <div class="card__content">
+                    <p><strong>Адрес офиса:</strong></p>
+                    <p>
+                        <a href="{{ site.address.map }}" target="_blank" rel="noopener noreferrer" itemprop="address">
+                            {{ site.address.locality }}, {{ site.address.street }}
+                        </a>
+                        (вход со стороны улицы, левый угол дома, 1 этаж)
+                    </p>
+                </div>
+            </div>
+
+            <div class="card card--article">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h2 class="card__title">Планируйте</h2>
+                </div>
+                <div class="card__content">
+                    <p><strong>График работы:</strong></p>
+                    <p>Понедельник – пятница: <span itemprop="openingHours">с 09:00 до 17:30</span></p>
+                    <p>Суббота, воскресенье: <span style="color: #a42222; font-weight: 500;">нерабочие дни</span></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
+    <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
+    {% if site.yandexVerification %}<meta name="yandex-verification" content="{{ site.yandexVerification }}">{% endif %}
+    <link rel="canonical" href="{{ siteUrl }}{{ page.url | replace(pathPrefix, '') }}">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:title" content="{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.name }}{% endif %}">
+    <meta property="og:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:url" content="{{ siteUrl }}{{ page.url | replace(pathPrefix, '') }}">
+    <meta property="og:image" content="{{ siteUrl }}/doc/logo.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.name }}{% endif %}">
+    <meta name="twitter:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:image" content="{{ siteUrl }}/doc/logo.svg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ site.legalName }}",
+      "legalName": "{{ site.legalName }}",
+      "url": "{{ siteUrl }}/",
+      "logo": "{{ siteUrl }}/doc/logo.svg",
+      "foundingDate": "{{ site.foundingDate }}",
+      "telephone": ["{{ site.phone1 }}", "{{ site.phone2 }}"],
+      "email": "{{ site.email }}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ site.address.street }}",
+        "addressLocality": "{{ site.address.locality }}",
+        "postalCode": "{{ site.address.postalCode }}",
+        "addressCountry": "{{ site.address.country }}"
+      }
+    }
+    </script>
+
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="{{ '/style.css' | url }}">
+
+    <!-- Подключаем шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ '/doc/logo.svg' | url }}" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="{{ '/' | url }}" class="logo">
+                <img src="{{ '/doc/logo.svg' | url }}" alt="{{ site.name }}" class="logo__img">
+                <span class="logo__text">{{ site.name }}</span>
+            </a>
+
+            <nav class="nav" id="siteNav" aria-label="Основное меню">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="{{ '/' | url }}" class="nav__link{% if active == 'home' %} nav__link--active{% endif %}">
+                            <span class="nav__text">Начало</span>
+                        </a>
+                    </li>
+                    <li class="nav__item nav__item--dropdown{% if active == 'consumer' or active == 'zakon' or active == 'articles' %} nav__item--active-parent{% endif %}">
+                        <a href="{{ '/consumer/' | url }}" class="nav__link{% if active == 'consumer' %} nav__link--active{% endif %}">
+                            <span class="nav__text">Потребителю</span>
+                        </a>
+                        <ul class="nav__dropdown">
+                            <li class="nav__dropdown-item">
+                                <a href="{{ '/zakon/' | url }}" class="nav__dropdown-link{% if active == 'zakon' %} nav__link--active{% endif %}">
+                                    <span class="nav__sub-arrow" aria-hidden="true">▸</span>
+                                    <span class="nav__text">Законодательство</span>
+                                </a>
+                            </li>
+                            <li class="nav__dropdown-item">
+                                <a href="{{ '/articles/' | url }}" class="nav__dropdown-link{% if active == 'articles' %} nav__link--active{% endif %}">
+                                    <span class="nav__sub-arrow" aria-hidden="true">▸</span>
+                                    <span class="nav__text">Статьи</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ '/about/' | url }}" class="nav__link{% if active == 'about' %} nav__link--active{% endif %}">
+                            <span class="nav__text">О нас</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ '/contacts/' | url }}" class="nav__link{% if active == 'contacts' %} nav__link--active{% endif %}">
+                            <span class="nav__text">Контакты</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <main class="main-content" id="main-content">
+            {{ content | safe }}
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__container">
+                    <p class="footer__text">
+                        © 2026, {{ site.name }}. Все права защищены.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Вернуться к началу страницы">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="{{ '/script.js' | url }}" defer></script>
+</body>
+</html>

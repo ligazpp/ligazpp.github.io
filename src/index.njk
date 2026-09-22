@@ -1,0 +1,173 @@
+---
+layout: layout.njk
+active: home
+---
+
+<!-- ГЛАВНАЯ СТРАНИЦА -->
+<section class="section">
+
+    <!-- Герой-секция (Баннер) -->
+    <div class="container">
+        <div class="banner banner--primary">
+            <h1 class="banner__title">Мы защищаем права потребителей!</h1>
+            <p class="banner__text">
+                Актуальные статьи, анализ судебной практики и комментарии законодательства РФ о защите прав потребителей. Просто о сложном.
+            </p>
+            <div class="banner__actions">
+                <a href="{{ '/consumer/' | url }}" class="btn btn--primary">
+                    <i class="fas fa-shield-alt"></i> Узнайте о своих правах
+                </a>
+                <a href="{{ '/contacts/' | url }}" class="btn btn--outline">
+                    <i class="fas fa-phone"></i> Получите консультацию!
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section__header">
+            <div class="section__title--main">
+                Чем мы помогаем?
+            </div>
+        </div>
+        <div class="grid grid--2">
+
+            <!-- Консультируем -->
+            <div class="card card--article">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card__title">Консультируем</h2>
+                </div>
+                <div class="card__content">
+                    <div class="card__subtitle">
+                        Расскажем о ваших правах и поможем разобраться в ситуации:
+                    </div>
+                    <ul class="card__list card__list--check">
+                        <li class="card__list-item">
+                            <i class="fas fa-check-circle"></i> Как вернуть деньги за бракованный товар?
+                        </li>
+                        <li class="card__list-item">
+                            <i class="fas fa-check-circle"></i> Как обменять качественный товар, который не подошел?
+                        </li>
+                        <li class="card__list-item">
+                            <i class="fas fa-check-circle"></i> Как получить неустойку за нарушение сроков?
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Пишем -->
+            <div class="card card--article">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h2 class="card__title">Пишем</h2>
+                </div>
+                <div class="card__content">
+                    <div class="card__subtitle">
+                        Подготовим необходимые документы для защиты ваших прав:
+                    </div>
+                    <ul class="card__list card__list--check">
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Досудебную претензию к продавцам и исполнителям</li>
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Исковое заявление в суд</li>
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Жалобу в Роспотребнадзор и прокуратуру</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Защищаем -->
+            <div class="card card--article">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h2 class="card__title">Защищаем в суде</h2>
+                </div>
+                <div class="card__content">
+                    <div class="card__subtitle">
+                        Представляем интересы во всех судах:
+                    </div>
+                    <ul class="card__list card__list--check">
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Помогаем вернуть деньги за некачественный товар</li>
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Знаем как взыскать неустойку и убытки</li>
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Добиваемся компенсации морального вреда</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Контролируем -->
+            <div class="card card--article">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h2 class="card__title">Контролируем</h2>
+                </div>
+                <div class="card__content">
+                    <div class="card__subtitle">
+                        Осуществляем общественный контроль:
+                    </div>
+                    <ul class="card__list card__list--check">
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Обращаемся в суды в защиту неопределенного круга потребителей;</li>
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Проводим мониторинг качества;</li>
+                        <li class="card__list-item"><i class="fas fa-check-circle"></i> Сообщаем в органы контроля о фактах нарушений прав потребителей;</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Законы -->
+    <div class="container">
+        <div class="section__header">
+            <div class="section__title--main">
+                Законы, которые защищают потребителей!
+            </div>
+        </div>
+
+        <div class="grid grid--2">
+            <a href="https://www.consultant.ru/document/cons_doc_LAW_305/" class="grid-item" target="_blank" rel="noopener noreferrer">
+                <div class="grid-item__icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div>
+                    <h3 class="grid-item__title">Закон РФ «О защите прав потребителей»</h3>
+                    <p class="grid-item__text">(последняя редакция 2026 года)</p>
+                </div>
+            </a>
+
+            <a href="https://www.consultant.ru/document/cons_doc_LAW_373622/a3adf34c119aa4d7bff7097d62de3a4692d5eba9/"
+               class="grid-item"
+               target="_blank"
+               rel="noopener noreferrer">
+                <div class="grid-item__icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div>
+                    <h3 class="grid-item__title">Правила продажи товаров по договору розничной купли-продажи</h3>
+                    <p class="grid-item__text">(утв. Постановлением Правительства РФ № 2463 от 31.12.2020)</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="container">
+        <div class="banner banner--secondary">
+            <h2 class="banner__title">Нужна юридическая помощь?</h2>
+            <p class="banner__text">
+                Опытные юристы помогут разобраться в ситуации и найти оптимальное решение.
+            </p>
+            <div class="banner__actions">
+                <a href="{{ '/contacts/' | url }}" class="btn btn--primary btn--large">
+                    <i class="fas fa-phone"></i>
+                    Запишитесь на консультацию!
+                </a>
+            </div>
+        </div>
+    </div>
+
+</section>

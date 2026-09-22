@@ -1,0 +1,20 @@
+---
+layout: layout.njk
+---
+
+<section class="section">
+    <div class="container">
+        <a href="{{ '/articles/' | url }}" class="link article-back">
+            <i class="fas fa-arrow-left"></i> Назад к статьям
+        </a>
+
+        <header class="page-header">
+            <h1 class="page-header__title">{{ title }}</h1>
+            {% if subtitle %}<p class="page-header__subtitle">{{ subtitle }}</p>{% endif %}
+        </header>
+
+        <article class="law-content article-content">
+            {{ content | safe }}
+        </article>
+    </div>
+</section>

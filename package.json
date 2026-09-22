@@ -1,0 +1,15 @@
+{
+  "name": "ligazpp-test",
+  "version": "1.0.0",
+  "description": "Тестовый сайт «Лиги защитников потребителей» на Eleventy",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": ["11ty", "static", "site"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}
