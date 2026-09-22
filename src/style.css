@@ -175,7 +175,7 @@ img {
   width: 100%;
   min-height: calc(100vh - 70px);
   background-color: var(--color-bg-main);
-  padding: 10px 20px;
+  padding: 10px 120px;
 }
 
 /* Навигация в шапке (одна строка с логотипом, прижата вправо) */
