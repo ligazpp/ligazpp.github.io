@@ -24,7 +24,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - name: Build site
-        run: SITE_URL='https://ligazpp.github.io' CUSTOM_DOMAIN=off npx eleventy
+        run: SITE_URL='https://ligazpp.github.io' npx eleventy
       - uses: actions/configure-pages@v5
         with:
           enablement: true
