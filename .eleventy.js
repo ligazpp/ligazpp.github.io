@@ -5,7 +5,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/style.css');
   eleventyConfig.addPassthroughCopy('src/script.js');
   eleventyConfig.addPassthroughCopy('src/doc');
-  eleventyConfig.addPassthroughCopy('src/CNAME');
+  if (process.env.CUSTOM_DOMAIN !== 'off') {
+    eleventyConfig.addPassthroughCopy('src/CNAME');
+  }
 
   // Базовый адрес публикации (для canonical, sitemap, Open Graph)
   eleventyConfig.addGlobalData('siteUrl', () => process.env.SITE_URL || 'https://ligazpp.ru');

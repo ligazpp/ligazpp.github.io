@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Build site
-        run: SITE_URL='https://ligazpp.ru' npx eleventy
+        run: SITE_URL='https://ligazpp.ru' CUSTOM_DOMAIN=off npx eleventy
 
       - name: Publish to gh-pages
         run: |
