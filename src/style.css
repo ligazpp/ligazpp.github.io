@@ -3,38 +3,46 @@
    ============================================================================ */
 
 :root {
-  /* Основные цвета */
-  --color-primary: #3f75c5;
-  --color-primary-dark: #2c5aa0;
-  --color-primary-light: rgba(63, 117, 197, 0.1);
-  
+  /* ===== Схема «Классика» (по умолчанию) — деловой синий ===== */
+  --color-primary: #2163b5;
+  --color-primary-dark: #194c8e;
+  --color-primary-light: rgba(33, 99, 181, 0.10);
+
   /* Фоны */
-  --color-bg-main: #f8fafc;
-  --color-bg-dark: #2c3e50;
+  --color-bg-main: #f4f7fc;
+  --color-bg-dark: #14263c;
   --color-bg-light:#ffffff;
-  
+
   /* Текст */
-  --color-text-primary: #1e293b;
-  --color-text-secondary: #64748b;
-  --color-text-light: rgba(255, 255, 255, 0.9);
-  
+  --color-text-primary: #172436;
+  --color-text-secondary: #5b6b7d;
+  --color-text-light: rgba(255, 255, 255, 0.92);
+
   /* Границы */
-  --color-border: #e2e8f0;
-  --color-border-hover: #cbd5e1;
-  
+  --color-border: #dfe6f0;
+  --color-border-hover: #c8d4e6;
+
   /* Сайдбар */
-  --color-sidebar-text: #475569;
-  --color-sidebar-active-bg: rgba(63, 117, 197, 0.08);
-  --color-sidebar-divider: #e2e8f0;
-  
+  --color-sidebar-text: #53647a;
+  --color-sidebar-active-bg: rgba(33, 99, 181, 0.08);
+  --color-sidebar-divider: #e6ecf4;
+
   /* Градиенты */
-  --gradient-primary: linear-gradient(to right, #3f75c5, #5b8cda, var(--color-bg-light));
-  
-  /* Тени (унифицированы) */
+  --gradient-primary: linear-gradient(to right, #2163b5, #3f7fbf, var(--color-bg-light));
+
+  /* Акценты */
+  --color-ok: #0f9d58;
+
+  /* Текст поверх цветных (кнопки, бейджи, подвал) */
+  --color-on-primary: #ffffff;
+  --color-on-primary-soft: rgba(255, 255, 255, 0.85);
+
+  /* Тени */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
+
 
 
 /* ============================================================================
@@ -58,7 +66,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: var(--color-text-primary);
-  background-color: var(--color-bg-main);
+  /*background-color: var(--color-bg-main);*/
 }
 
 /* Основные элементы */
@@ -107,7 +115,7 @@ img {
 }
 .bg-primary { 
   background-color: var(--color-primary);
-  color: var(--color-bg-light);
+  color: var(--color-on-primary);
 }
 
 /* Скрытие элементов (для скринридеров) */
@@ -135,9 +143,14 @@ img {
   background-color: var(--color-bg-light);
   color: var(--color-text-primary);
   box-shadow: var(--shadow-sm);
+}
+
+/* Верхняя строка шапки: логотип + кнопка меню */
+.header__top {
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  justify-content: space-between;
+  padding: 12px 20px;
 }
 
 /* Логотип */
@@ -148,7 +161,6 @@ img {
   font-weight: 500;
   font-size: 18px;
   color: var(--color-primary-dark);
-  padding: 12px 0;
 }
 
 .logo__img {
@@ -159,7 +171,6 @@ img {
 /* Кнопка меню (мобильная) */
 .menu-toggle {
   display: none;
-  margin-left: auto;
   padding: 8px;
   color: var(--color-primary);
   font-size: 24px;
@@ -174,14 +185,16 @@ img {
 .main-content {
   width: 100%;
   min-height: calc(100vh - 70px);
-  background-color: var(--color-bg-main);
+  background-color: var(--color-bg-light);
   padding: 10px 120px;
 }
 
-/* Навигация в шапке (одна строка с логотипом, прижата вправо) */
+/* Лента меню под логотипом: по центру, без лишних линий */
 .nav {
-  margin-left: auto;
-  background-color: var(--color-bg-light);
+  background-color: var(--color-bg-main);
+  display: flex;
+  justify-content: center;
+  padding: 4px 8px;
 }
 
 .nav__list {
@@ -189,6 +202,7 @@ img {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 4px;
   width: 100%;
   padding: 0;
@@ -202,24 +216,25 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 18px;
+  padding: 10px 16px;
   color: var(--color-sidebar-text);
   font-weight: 500;
   font-size: 15px;
   white-space: nowrap;
-  transition: background-color 150ms ease, color 150ms ease;
+  border-radius: 10px;
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
 }
 
 .nav__link:hover {
-  background-color: var(--color-bg-main);
+  background-color: var(--color-sidebar-active-bg);
   color: var(--color-primary);
 }
 
 .nav__link--active {
-  background-color: var(--color-sidebar-active-bg);
-  color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
   font-weight: 600;
-  border-bottom: 3px solid var(--color-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .nav__icon {
@@ -231,65 +246,6 @@ img {
 
 .nav__text {
   white-space: nowrap;
-}
-
-/* Выпадающее подменю */
-.nav__dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 240px;
-  background-color: var(--color-bg-light);
-  border: 1px solid var(--color-border);
-  border-top: none;
-  border-radius: 0 0 12px 12px;
-  box-shadow: var(--shadow-lg);
-  padding: 8px 0;
-  z-index: 1001;
-}
-
-.nav__item--dropdown:hover > .nav__dropdown,
-.nav__item--dropdown:focus-within > .nav__dropdown {
-  display: block;
-}
-
-.nav__item--active-parent > .nav__link {
-  color: var(--color-primary);
-}
-
-.nav__dropdown-item {
-  list-style: none;
-}
-
-.nav__dropdown-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
-  color: var(--color-sidebar-text);
-  font-weight: 500;
-  font-size: 15px;
-  white-space: nowrap;
-  transition: background-color 150ms ease, color 150ms ease;
-}
-
-.nav__dropdown-link:hover {
-  background-color: var(--color-bg-main);
-  color: var(--color-primary);
-}
-
-.nav__sub-arrow {
-  color: var(--color-primary);
-  font-size: 11px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.nav__dropdown-link.nav__link--active {
-  border-bottom: none;
-  border-left: 3px solid var(--color-primary);
-  background-color: var(--color-sidebar-active-bg);
 }
 
 /* Подвал */
@@ -309,7 +265,7 @@ img {
 }
 
 .footer__text {
-  color: var(--color-bg-light);
+  color: var(--color-on-primary);
   font-size: 14px;
   text-align: center;
   width: 100%;
@@ -322,13 +278,13 @@ img {
 }
 
 .footer__link {
-  color: var(--color-bg-light);
+  color: var(--color-on-primary);
   font-size: 14px;
   transition: color 150ms ease;
 }
 
 .footer__link:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-on-primary-soft);
   text-decoration: underline;
 }
 
@@ -355,7 +311,7 @@ img {
 
 .banner--secondary {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  color: var(--color-bg-light);
+  color: var(--color-on-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -378,7 +334,7 @@ img {
 }
 
 .banner--secondary .banner__text {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-on-primary-soft);
 }
 
 .banner__actions {
@@ -390,10 +346,10 @@ img {
 /* ----- 5.2 Секции контента ----- */
 .section {
   background-color: var(--color-bg-light);
-  padding: 40px;
-  margin: 15px 0 15px;
+  padding: 5px 40px;
+  /* margin: 15px 0 15px;*/
   border-radius: 16px;
-  box-shadow: var(--shadow-sm);
+  /* box-shadow: var(--shadow-sm);*/
 }
 
 .section--light {
@@ -463,7 +419,7 @@ img {
 
 .btn--primary {
   background-color: var(--color-primary);
-  color: var(--color-bg-light);
+  color: var(--color-on-primary);
 }
 
 .btn--primary:hover {
@@ -480,7 +436,7 @@ img {
 
 .btn--outline:hover {
   background-color: var(--color-primary);
-  color: var(--color-bg-light);
+  color: var(--color-on-primary);
   transform: translateY(-2px);
 }
 
@@ -608,7 +564,7 @@ box-shadow: var(--shadow-lg);
   top: 16px;
   right: 16px;
   background-color: var(--color-primary);
-  color: var(--color-bg-light);
+  color: var(--color-on-primary);
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 12px;
@@ -631,6 +587,7 @@ box-shadow: var(--shadow-lg);
 /* ----- 5.5 Модификаторы карточек ----- */
 .card--article {
   text-align: left;
+  margin-top: 10px;
 }
 
 .card--service {
@@ -671,7 +628,7 @@ list-style: none;
 }
 
 .card__list--check .card__list-item i {
-  color: #10b981;
+  color: var(--color-ok);
   font-size: 16px;
   flex-shrink: 0;
   margin-top: 5px;
@@ -700,7 +657,7 @@ list-style: none;
 }
 
 .card__list-icon--rights {
-  color: #10b981;
+  color: var(--color-ok);
   font-size: 18px;
   flex-shrink: 0;
 }
@@ -763,7 +720,7 @@ list-style: none;
 
 .grid-item:hover .grid-item__icon {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-on-primary);
 }
 
 .grid-item__title {
@@ -843,23 +800,44 @@ list-style: none;
   color: var(--color-primary-dark);
 }
 
-/* Ссылка "Назад к статьям" */
+/* Ссылка "Назад" со стрелкой в кружке */
 .article-back {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 20px;
   color: var(--color-text-secondary);
   font-weight: 500;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.article-back i {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  font-size: 11px;
+  color: var(--color-primary);
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
 .article-back:hover {
   color: var(--color-primary);
 }
 
+.article-back:hover i {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-primary);
+}
+
 /* ----- 5.10 Заголовки страниц ----- */
 .page-header {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .page-header__title {
@@ -867,7 +845,7 @@ list-style: none;
   font-weight: 600;
   color: var(--color-text-primary);
   padding-bottom: 12px;
-  border-bottom: 3px solid;
+  border-bottom: 2px solid;
   border-image: var(--gradient-primary) 1;
 }
 
@@ -875,6 +853,7 @@ list-style: none;
   font-size: 16px;
   color: var(--color-text-secondary);
   margin-top: 8px;
+  font-style: italic;
 
 }
 
@@ -930,7 +909,7 @@ p.law-paragraph {
 
 /* Markdown-статьи: применяем те же стили к типовым тегам */
 .law-content.article-content h2 {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     color: var(--color-primary-dark);
     margin: 10px 0 10px 0;
@@ -1137,43 +1116,6 @@ p.law-paragraph {
     }
 }
 
-/* Поддержка темной темы (если используется) */
-@media (prefers-color-scheme: dark) {
-    .faq-item {
-        background-color: #2d2d2d;
-        border-color: #444;
-    }
-    
-    .faq-question {
-        background-color: #333;
-    }
-    
-    .faq-question:hover {
-        background-color: #3a3a3a;
-    }
-    
-    .faq-title {
-        color: #e0e0e0;
-    }
-    
-    .faq-answer {
-        background-color: #2d2d2d;
-    }
-    
-    .faq-answer p {
-        color: #cccccc;
-    }
-    
-    .faq-note {
-        background-color: #3a3a3a;
-        border-left-color: #64b5f6;
-    }
-    
-    .faq-note strong {
-        color: #64b5f6;
-    }
-}
-
 /* ----- Кнопка "Наверх" ----- */
 .scroll-top-btn {
   position: fixed;
@@ -1182,7 +1124,7 @@ p.law-paragraph {
   width: 50px;
   height: 50px;
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-on-primary);
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -1262,7 +1204,6 @@ p.law-paragraph {
     left: 0;
     right: 0;
     background-color: var(--color-bg-light);
-    border-top: 1px solid var(--color-border);
     box-shadow: var(--shadow-lg);
   }
 
@@ -1277,33 +1218,13 @@ p.law-paragraph {
     padding: 4px 16px 16px;
   }
 
-  .nav__dropdown {
-    position: static;
-    display: block;
-    box-shadow: none;
-    border: none;
-    border-top: none;
-    border-radius: 0;
-    padding: 0;
-  }
-
   .nav__link {
     padding: 14px 12px;
   }
 
-  /* Подсветка активного пункта — только текст, без ширины строки */
+  /* Подсветка активного пункта на весь пункт меню */
   .nav__link--active {
-    background-color: transparent;
-    border-bottom: none;
-  }
-
-  .nav__link--active .nav__text,
-  .nav__dropdown-link.nav__link--active .nav__text {
-    background-color: var(--color-sidebar-active-bg);
-    color: var(--color-primary);
-    font-weight: 600;
-    border-radius: 8px;
-    padding: 6px 12px;
+    color: var(--color-on-primary);
   }
 
   .main-content {
@@ -1489,4 +1410,22 @@ p.law-paragraph {
     right: 15px;
     font-size: 16px;
   }
+}
+
+/* ----- Лёгкие штрихи оформления ----- */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-item {
+  border: 1px solid var(--color-border);
+}
+
+.faq-question:hover {
+  background-color: var(--color-sidebar-active-bg);
 }
