@@ -4,12 +4,20 @@
   "description": "Тестовый сайт «Лиги защитников потребителей» на Eleventy",
   "scripts": {
     "dev": "eleventy --serve",
-    "build": "eleventy"
+    "build": "eleventy",
+    "laws:check": "node scripts/check-laws.mjs"
   },
-  "keywords": ["11ty", "static", "site"],
+  "keywords": [
+    "11ty",
+    "static",
+    "site"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6"
+  },
+  "dependencies": {
+    "markdown-it-anchor": "^10.0.0"
   }
 }

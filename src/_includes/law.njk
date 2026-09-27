@@ -1,0 +1,52 @@
+---
+layout: layout.njk
+---
+
+<section class="section">
+    <div class="container">
+        <a href="{{ '/zakon/' | url }}" class="article-back">
+            <i class="fas fa-arrow-left"></i> Назад
+        </a>
+
+        {% set law = slug | findLaw %}
+
+        <header class="page-header">
+            <h1 class="page-header__title">{{ title }}</h1>
+            {% if subtitle %}<p class="page-header__subtitle">{{ subtitle }}</p>{% endif %}
+        </header>
+
+        {% set st = lawStatus[slug] %}
+        {% if st and (st.status == 'ok' or st.status == 'update') %}
+            <div class="law-banner law-banner--{{ st.status }}">
+                {% if st.status == 'ok' %}
+                    <i class="fas fa-circle-check"></i>
+                    <div>
+                        {% if st.checkedAt %}<span class="law-banner__meta">Действующая редакция. Проверено {{ st.checkedAt | ruDate }}</span>{% endif %}
+                    </div>
+                {% else %}
+                    <i class="fas fa-triangle-exclamation"></i>
+                    <div>
+                        На официальном портале появилась новая редакция — от <b>{{ st.onlineRevision }}</b>.
+                        Текст скоро будет обновлён.
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if toc != false %}
+        {{ content | toc | safe }}
+        {% endif %}
+
+        <article class="law-content law-content--text article-content{% if obzor %} law-obzor{% endif %}">
+            {{ content | safe }}
+        </article>
+
+        {% if law %}
+        <div class="law-source">
+            <i class="fas fa-scale-balanced"></i>
+            <a href="{{ law.officialUrl }}" target="_blank" rel="noopener noreferrer">Источник документа</a>
+        </div>
+        {% endif %}
+
+    </div>
+</section>

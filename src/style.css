@@ -635,6 +635,35 @@ list-style: none;
   padding-right: 10px;
 }
 
+/* Списки markdown внутри карточек «О нас» (из .md-контента) */
+.card__content--about ul {
+  list-style: none;
+  margin: 0;
+}
+
+.card__content--about ul li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.card__content--about ul li::before {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 16px;
+  content: "\f058"; /* fa-circle-check */
+  color: var(--color-ok);
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+
+.card__content--legal ul li::before {
+  content: "\f05a"; /* fa-circle-info */
+  color: var(--color-primary);
+}
+
 /* Список прав */
 .card__list--rights {
   display: flex;
@@ -752,6 +781,38 @@ list-style: none;
   font-weight: 500;
   align-self: flex-start;
   margin-top: 8px;
+}
+
+/* Отметка актуальности редакции закона на карточке */
+.law-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  padding: 4px 10px;
+  border-radius: 20px;
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+.law-status--ok {
+  color: #14532d;
+  background-color: #dcfce7;
+}
+
+.law-status--ok i {
+  color: var(--color-ok);
+}
+
+.law-status--update {
+  color: #92400e;
+  background-color: #ffedd5;
+}
+
+.law-status--update i {
+  color: #ea580c;
 }
 
 /* ----- 5.9 Документы и ссылки ----- */
@@ -912,16 +973,14 @@ p.law-paragraph {
     font-size: 20px;
     font-weight: 600;
     color: var(--color-primary-dark);
-    margin: 10px 0 10px 0;
-    padding: 15px 0 15px 0;
-    border-bottom: 2px solid var(--color-accent);
-    line-height: 1.5;
+    padding: 10px 0 10px 0;
 }
 
 .law-content.article-content p {
-    margin: 10px 0;
-    line-height: 1.5;
+    margin: 5px 0;
+    line-height: 1.6;
     color: var(--color-text-primary);
+    text-indent: 30px;
 }
 
 .law-content.article-content ul {
@@ -933,6 +992,202 @@ p.law-paragraph {
 
 .law-content.article-content li {
     margin-bottom: 6px;
+}
+
+/* Дополнительные уровни текста законов */
+.law-content.article-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    padding: 10px 0 5px 0;
+    border-bottom: 1px solid #1976d2;
+}
+
+.law-content.article-content hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 20px 0;
+}
+
+/* Баннер актуальности на странице закона */
+.law-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 5px;
+    border-radius: 18px;
+    margin: 10px 0;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.law-banner i {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.law-banner__meta {
+    display: block;
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 4px;
+}
+
+.law-banner--ok {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #14532d;
+}
+
+.law-banner--ok i {
+    color: var(--color-ok);
+}
+
+.law-banner--update {
+    background-color: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #7c2d12;
+}
+
+.law-banner--update i {
+    color: #ea580c;
+}
+
+/* Оглавление закона (один аккордеон на всё содержание) */
+.law-toc {
+    margin: 12px 0 6px;
+}
+
+.law-toc summary {
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.law-toc summary::-webkit-details-marker {
+    display: none;
+}
+
+.law-toc summary::before {
+    content: "▸";
+    font-size: 14px;
+    line-height: 1;
+    color: var(--color-primary);
+    transition: transform 180ms ease;
+    flex-shrink: 0;
+}
+
+.law-toc details[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.law-toc__acc > summary {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    padding-bottom: 6px;
+}
+
+.law-toc__list {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+}
+
+.law-toc__chapter {
+    margin: 0;
+    padding: 8px 0 4px;
+}
+
+.law-toc__chapter > a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-decoration: none;
+}
+
+.law-toc__chapter ul {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+}
+
+.law-toc__chapter ul li {
+    padding: 2px 0 2px 18px;
+}
+
+.law-toc a {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.law-toc a:hover {
+    text-decoration: underline;
+}
+
+/* Убираем рамку фокуса у заголовков-якорей при переходе по Содержанию */
+.law-content h2[id]:focus,
+.law-content h3[id]:focus {
+    outline: none;
+}
+
+/* Ссылка на официальный источник внизу страницы закона */
+.law-source {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 28px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--color-text-secondary);
+}
+
+.law-source i {
+    color: var(--color-primary);
+}
+
+.law-source a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.law-source a:hover {
+    text-decoration: underline;
+}
+
+/* -----  ОБЗОРЫ СУДЕБНОЙ ПРАКТИКИ ВС РФ ----- */
+/* Красная строка у абзацев кейса (кроме первого абзаца-аннотации с номером) */
+.law-obzor .article-content p {
+    text-indent: 1.5em;
+}
+
+.law-obzor .article-content p:has(> strong:first-child) {
+    text-indent: 0;
+}
+
+/* Судакт — ссылка на судебный акт в конце кейса (в стиле .law-source, но без ссылки) */
+.law-obzor .law-cite {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 10px 0 40px 0;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+.law-obzor .law-cite i {
+    margin-top: 3px;
 }
 /* -----  АККОРДЕОН (FAQ) ----- */
 .faq__container {

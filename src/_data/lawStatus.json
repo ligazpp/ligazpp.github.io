@@ -1,0 +1,38 @@
+{
+  "zpp": {
+    "onlineRevision": "17.02.2026",
+    "localRevision": "17.02.2026",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
+  },
+  "pravila": {
+    "onlineRevision": "29.08.2026",
+    "localRevision": "29.08.2026",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
+  },
+  "pravila-soyuza": {
+    "onlineRevision": "06.12.2024",
+    "localRevision": "06.12.2024",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
+  },
+  "perechen-tehslozhnykh": {
+    "onlineRevision": "27.03.2019",
+    "localRevision": "27.03.2019",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
+  },
+  "obzor-praktiki-2024": {
+    "onlineRevision": "23.10.2024",
+    "localRevision": "23.10.2024",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
+  },
+  "obzor-praktiki-2023": {
+    "onlineRevision": "18.10.2023",
+    "localRevision": "18.10.2023",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
+  }
+}

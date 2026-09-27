@@ -19,62 +19,92 @@ active: zakon
 
         <div class="grid grid--2">
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_305/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="{{ laws[0].textUrl }}"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-file-alt"></i>
+                    <i class="fas {{ laws[0].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Закон РФ «О защите прав потребителей»</h3>
-                    <p class="grid-item__text">(последняя редакция 2026 года)</p>
+                    <h3 class="grid-item__title">{{ laws[0].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[0].cardNote }})</p>
+                    {% set zst = lawStatus['zpp'] %}
+                    {% if zst and (zst.status == 'ok' or zst.status == 'update') %}
+                    <span class="law-status law-status--{{ zst.status }}">
+                        {% if zst.status == 'ok' %}
+                            <i class="fas fa-circle-check"></i> Редакция от {{ zst.onlineRevision }}
+                        {% else %}
+                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ zst.onlineRevision }})
+                        {% endif %}
+                    </span>
+                    {% endif %}
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_496218/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+<a href="{{ laws[2].textUrl }}"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-file-alt"></i>
+                    <i class="fas {{ laws[2].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Единые правила в области защиты прав потребителей Союзного государства</h3>
-                    <p class="grid-item__text">(утв. Декретом Высшего Государственного Совета Союзного государства № 6 от 06.12.2024)</p>
+                    <h3 class="grid-item__title">{{ laws[2].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[2].cardNote }})</p>
+                    {% set sst = lawStatus['pravila-soyuza'] %}
+                    {% if sst and (sst.status == 'ok' or sst.status == 'update') %}
+                    <span class="law-status law-status--{{ sst.status }}">
+                        {% if sst.status == 'ok' %}
+                            <i class="fas fa-circle-check"></i> Редакция от {{ sst.onlineRevision }}
+                        {% else %}
+                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ sst.onlineRevision }})
+                        {% endif %}
+                    </span>
+                    {% endif %}
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_535649/a3adf34c119aa4d7bff7097d62de3a4692d5eba9/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="{{ laws[1].textUrl }}#pravila"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-store"></i>
+                    <i class="fas {{ laws[1].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Правила продажи товаров</h3>
-                    <p class="grid-item__text">(утв. Постановлением Правительства РФ № 657 от 30.05.2026)</p>
+                    <h3 class="grid-item__title">{{ laws[1].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[1].cardNote }})</p>
+                    {% set pst = lawStatus['pravila'] %}
+                    {% if pst and (pst.status == 'ok' or pst.status == 'update') %}
+                    <span class="law-status law-status--{{ pst.status }}">
+                        {% if pst.status == 'ok' %}
+                            <i class="fas fa-circle-check"></i> Редакция от {{ pst.onlineRevision }}
+                        {% else %}
+                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ pst.onlineRevision }})
+                        {% endif %}
+                    </span>
+                    {% endif %}
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_121597/63df0c03a72c20f83fbac36216d643e24c7dc5cd/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="{{ laws[3].textUrl }}"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-mobile-alt"></i>
+                    <i class="fas {{ laws[3].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Перечень технически сложных товаров</h3>
-                    <p class="grid-item__text">(утв. Постановлением Правительства РФ № 924 от 10.11.2011)</p>
+                    <h3 class="grid-item__title">{{ laws[3].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[3].cardNote }})</p>
+                    {% set tst = lawStatus['perechen-tehslozhnykh'] %}
+                    {% if tst and (tst.status == 'ok' or tst.status == 'update') %}
+                    <span class="law-status law-status--{{ tst.status }}">
+                        {% if tst.status == 'ok' %}
+                            <i class="fas fa-circle-check"></i> Редакция от {{ tst.onlineRevision }}
+                        {% else %}
+                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ tst.onlineRevision }})
+                        {% endif %}
+                    </span>
+                    {% endif %}
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_535649/a7e95958f6d9c791e728172bd17d5df3b1152118/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="/zakon/657/#perechen-obmenu"
+               class="grid-item">
                 <div class="grid-item__icon">
                     <i class="fas fa-ban"></i>
                 </div>
@@ -84,10 +114,8 @@ active: zakon
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_373622/da681dc46477f9c4e7d03b465852e819c5d22c2d/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="/zakon/657/#perechen-dlitelnogo"
+               class="grid-item">
                 <div class="grid-item__icon">
                     <i class="fas fa-tools"></i>
                 </div>
@@ -105,29 +133,45 @@ active: zakon
         </div>
 
         <div class="grid grid--2">
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_488843/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="{{ laws[4].textUrl }}"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-scale-balanced"></i>
+                    <i class="fas {{ laws[4].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Обзор судебной практики (2024)</h3>
-                    <p class="grid-item__text">(утв. Президиумом ВС РФ 23.10.2024)</p>
+                    <h3 class="grid-item__title">{{ laws[4].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[4].cardNote }})</p>
+                    {% set ost = lawStatus['obzor-praktiki-2024'] %}
+                    {% if ost and (ost.status == 'ok' or ost.status == 'update') %}
+                    <span class="law-status law-status--{{ ost.status }}">
+                        {% if ost.status == 'ok' %}
+                            <i class="fas fa-circle-check"></i> Редакция от {{ ost.onlineRevision }}
+                        {% else %}
+                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ ost.onlineRevision }})
+                        {% endif %}
+                    </span>
+                    {% endif %}
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_460140/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="{{ laws[5].textUrl }}"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-scale-balanced"></i>
+                    <i class="fas {{ laws[5].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Обзор судебной практики (2023)</h3>
-                    <p class="grid-item__text">(утв. Президиумом ВС РФ 18.10.2023)</p>
+                    <h3 class="grid-item__title">{{ laws[5].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[5].cardNote }})</p>
+                    {% set ost23 = lawStatus['obzor-praktiki-2023'] %}
+                    {% if ost23 and (ost23.status == 'ok' or ost23.status == 'update') %}
+                    <span class="law-status law-status--{{ ost23.status }}">
+                        {% if ost23.status == 'ok' %}
+                            <i class="fas fa-circle-check"></i> Редакция от {{ ost23.onlineRevision }}
+                        {% else %}
+                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ ost23.onlineRevision }})
+                        {% endif %}
+                    </span>
+                    {% endif %}
                 </div>
             </a>
 
@@ -171,7 +215,7 @@ active: zakon
             </a>
         </div>
         <div class="section__subtitle">
-            * Ссылки на сайт "КонсультантПлюс"
+            * Законы и правила продажи размещены здесь полностью; остальные акты — на сайте «КонсультантПлюс»
         </div>
 
     </div>
