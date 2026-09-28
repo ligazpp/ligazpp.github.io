@@ -20,33 +20,75 @@ create table if not exists public.staff_files (
 );
 
 -- ---------------------------------------------------------------
--- 2. Таблица пользователей (пока хранятся в файле проекта src/staff-users.js).
---    Здесь таблица не нужна, поэтому сразу переходим к политикам.
+-- 2. Пользователи живут в Supabase Auth (аутентификация), а не в таблице.
+--    Список сотрудников создаётся здесь же — см. пункт 6.
 -- ---------------------------------------------------------------
 
-<!--SECTION2-->
-
 -- ---------------------------------------------------------------
--- 3. Политики доступа (для стадии «без входа» разрешаем всем
---    читать/создавать; при подключении авторизации их заменят
---    на политики по ролям).
+-- 3. Политики доступа к таблице файлов:
+--    работать может только вошедший пользователь (auth.role() = 'authenticated').
 -- ---------------------------------------------------------------
 alter table public.staff_files enable row level security;
 
-create policy "files_all_select" on public.staff_files for select using (true);
-create policy "files_all_insert" on public.staff_files for insert with check (true);
-create policy "files_all_update" on public.staff_files for update using (true);
-create policy "files_all_delete" on public.staff_files for delete using (true);
+drop policy if exists "files_all_select" on public.staff_files;
+drop policy if exists "files_all_insert" on public.staff_files;
+drop policy if exists "files_all_update" on public.staff_files;
+drop policy if exists "files_all_delete" on public.staff_files;
+
+create policy "files_auth_select" on public.staff_files
+  for select using (auth.role() = 'authenticated');
+create policy "files_auth_insert" on public.staff_files
+  for insert with check (auth.role() = 'authenticated');
+create policy "files_auth_update" on public.staff_files
+  for update using (auth.role() = 'authenticated');
+create policy "files_auth_delete" on public.staff_files
+  for delete using (auth.role() = 'authenticated');
 
 -- ---------------------------------------------------------------
--- 3. Политики доступа к файлам в Storage bucket «staff».
---    Приватный bucket, созданный через интерфейс Supabase,
---    по умолчанию разрешает работу только залогиненным.
---    Пока вход не подключён, разрешаем анонимам читать,
---    загружать и удалять файлы. Это будет ужесточено
---    при добавлении авторизации.
+-- 4. Политики доступа к файлам в Storage bucket «staff»:
+--    только вошедшие могут читать, загружать, удалять.
 -- ---------------------------------------------------------------
-create policy "storage_files_select" on storage.objects for select using (bucket_id = 'staff');
-create policy "storage_files_insert" on storage.objects for insert with check (bucket_id = 'staff');
-create policy "storage_files_update" on storage.objects for update using (bucket_id = 'staff');
-create policy "storage_files_delete" on storage.objects for delete using (bucket_id = 'staff');
+drop policy if exists "storage_files_select" on storage.objects;
+drop policy if exists "storage_files_insert" on storage.objects;
+drop policy if exists "storage_files_update" on storage.objects;
+drop policy if exists "storage_files_delete" on storage.objects;
+
+create policy "storage_files_select" on storage.objects
+  for select using (auth.role() = 'authenticated' and bucket_id = 'staff');
+create policy "storage_files_insert" on storage.objects
+  for insert with check (auth.role() = 'authenticated' and bucket_id = 'staff');
+create policy "storage_files_update" on storage.objects
+  for update using (auth.role() = 'authenticated' and bucket_id = 'staff');
+create policy "storage_files_delete" on storage.objects
+  for delete using (auth.role() = 'authenticated' and bucket_id = 'staff');
+
+-- ---------------------------------------------------------------
+-- 5. Профили сотрудников: дополнительная информация о вошедших
+--    (полное имя для подписи файлов).
+-- ---------------------------------------------------------------
+create table if not exists public.staff_profiles (
+    id         uuid primary key references auth.users (id) on delete cascade,
+    full_name  text not null,
+    role       text not null default 'staff'
+);
+
+-- Сам файл (в Git) не должен содержать пароли. Пароль задаётся
+-- один раз в панели Supabase (Authentication → Users → Add user),
+-- а здесь — только связка с профилем. Пример ниже — ЗАКОММЕНТИРОВАН.
+--
+-- Как создать первого пользователя — администратора:
+--   1. Dashboard → Authentication → Users → Add user
+--      Email:    afilin@liga.local
+--      Password: (задать свой)
+--   2. Выполните в SQL Editor (после создания пользователя):
+--      insert into public.staff_profiles (id, full_name, role)
+--      select id, 'Филин Александр Сергеевич', 'admin'
+--      from auth.users
+--      where email = 'afilin@liga.local'
+--      on conflict (id) do nothing;
+
+alter table public.staff_profiles enable row level security;
+
+drop policy if exists "profiles_auth_select" on public.staff_profiles;
+create policy "profiles_auth_select" on public.staff_profiles
+  for select using (auth.role() = 'authenticated');
