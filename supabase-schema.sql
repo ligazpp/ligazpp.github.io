@@ -20,16 +20,11 @@ create table if not exists public.staff_files (
 );
 
 -- ---------------------------------------------------------------
--- 2. Таблица задач (календарь / планировщик сотрудников).
+-- 2. Таблица пользователей (пока хранятся в файле проекта src/staff-users.js).
+--    Здесь таблица не нужна, поэтому сразу переходим к политикам.
 -- ---------------------------------------------------------------
-create table if not exists public.staff_tasks (
-    id         uuid primary key default gen_random_uuid(),
-    title      text not null,
-    due_date   date not null,
-    is_done    boolean not null default false,
-    author     text not null default 'Сотрудник',
-    created_at timestamptz not null default now()
-);
+
+<!--SECTION2-->
 
 -- ---------------------------------------------------------------
 -- 3. Политики доступа (для стадии «без входа» разрешаем всем
@@ -37,20 +32,14 @@ create table if not exists public.staff_tasks (
 --    на политики по ролям).
 -- ---------------------------------------------------------------
 alter table public.staff_files enable row level security;
-alter table public.staff_tasks enable row level security;
 
 create policy "files_all_select" on public.staff_files for select using (true);
 create policy "files_all_insert" on public.staff_files for insert with check (true);
 create policy "files_all_update" on public.staff_files for update using (true);
 create policy "files_all_delete" on public.staff_files for delete using (true);
 
-create policy "tasks_all_select" on public.staff_tasks for select using (true);
-create policy "tasks_all_insert" on public.staff_tasks for insert with check (true);
-create policy "tasks_all_update" on public.staff_tasks for update using (true);
-create policy "tasks_all_delete" on public.staff_tasks for delete using (true);
-
 -- ---------------------------------------------------------------
--- 4. Политики доступа к файлам в Storage bucket «staff».
+-- 3. Политики доступа к файлам в Storage bucket «staff».
 --    Приватный bucket, созданный через интерфейс Supabase,
 --    по умолчанию разрешает работу только залогиненным.
 --    Пока вход не подключён, разрешаем анонимам читать,

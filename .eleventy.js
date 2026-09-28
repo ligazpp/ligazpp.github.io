@@ -69,6 +69,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/style.css');
   eleventyConfig.addPassthroughCopy('src/script.js');
   eleventyConfig.addPassthroughCopy('src/staff.js');
+  eleventyConfig.addPassthroughCopy('src/staff-users.js');
   eleventyConfig.addPassthroughCopy('src/doc');
 
   // Базовый адрес публикации (для canonical, sitemap, Open Graph)

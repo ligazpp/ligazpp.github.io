@@ -1,5 +1,5 @@
 /**
- * Служебная страница сотрудников «Лиги»: обмен файлами, задачи и календарь.
+ * Служебная страница сотрудников «Лиги»: обмен файлами.
  *
  * Чтобы заработало, нужно заполнить ключи подключения к Supabase
  * (см. константы SUPABASE_URL и SUPABASE_ANON_KEY ниже) и выполнить
@@ -9,7 +9,7 @@
     'use strict';
 
     // =============================================================
-    // ⚠ ЗАПОЛНИТЕ ПЕРЕД ПУБЛИКАЦИЕЙ (обязательно):
+    // Подключение к Supabase (заполнено):
     //   URL проекта  — Dashboard → Project Settings → API → Project URL
     //   anon key      — Dashboard → Project Settings → API → anon public key
     // =============================================================
@@ -25,24 +25,110 @@
     // Ключ localStorage с датой последнего визита для бейджа «Новый файл»
     const LAST_VISIT_KEY = 'staffLastVisit';
 
+    // Ключ sessionStorage с именем вошедшего сотрудника
+    const SESSION_USER_KEY = 'staffUser';
+
     let supabase = null;
 
     // DOM-элементы
+    const loginEl = document.getElementById('staffLogin');
+    const contentEl = document.getElementById('staffContent');
+    const loginForm = document.getElementById('staffLoginForm');
+    const loginUser = document.getElementById('staffLoginUser');
+    const loginPass = document.getElementById('staffLoginPass');
+    const loginError = document.getElementById('staffLoginError');
+    const logoutBtn = document.getElementById('staffLogout');
+    const userLabel = document.getElementById('staffUserLabel');
+
     const statusEl = document.getElementById('staffStatus');
     const statusText = document.getElementById('staffStatusText');
     const btnPick = document.getElementById('staffFilePick');
-    const btnSubmit = document.getElementById('staffTaskSubmit');
     const fileInput = document.getElementById('staffFileInput');
-    const dropzone = document.getElementById('staffDropzone');
     const fileListEl = document.getElementById('staffFileList');
     const fileListEmpty = document.getElementById('staffFileListEmpty');
-    const taskForm = document.getElementById('staffTaskForm');
-    const taskTitle = document.getElementById('staffTaskTitle');
-    const taskDate = document.getElementById('staffTaskDate');
-    const tasksOverdue = document.getElementById('staffTasksOverdue');
-    const tasksToday = document.getElementById('staffTasksToday');
-    const tasksLater = document.getElementById('staffTasksLater');
-    const tasksEmpty = document.getElementById('staffTasksEmpty');
+
+    // ---------------------------------------------------------------
+    // Вход / выход
+    // ---------------------------------------------------------------
+    function currentUser() {
+        return JSON.parse(sessionStorage.getItem(SESSION_USER_KEY) || 'null');
+    }
+
+    function renderAuth() {
+        const user = currentUser();
+        const loggedIn = Boolean(user);
+        loginEl.hidden = loggedIn;
+        contentEl.hidden = !loggedIn;
+
+        if (user && userLabel) {
+            userLabel.textContent = `Вы вошли как: ${user.name}`;
+        }
+
+        if (loggedIn) {
+            initSupabase();
+        }
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const login = (loginUser.value || '').trim().toLowerCase();
+            const password = loginPass.value || '';
+            const found = (window.STAFF_USERS || []).find(
+                (u) => u.login.toLowerCase() === login && u.password === password
+            );
+            if (found) {
+                sessionStorage.setItem(SESSION_USER_KEY, JSON.stringify({ name: found.name, role: found.role }));
+                loginError.hidden = true;
+                loginUser.value = '';
+                loginPass.value = '';
+                renderAuth();
+            } else {
+                loginError.hidden = false;
+            }
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem(SESSION_USER_KEY);
+            renderAuth();
+        });
+    }
+
+    // ---------------------------------------------------------------
+    // Подключение к Supabase
+    // ---------------------------------------------------------------
+    function initSupabase() {
+        if (typeof window.supabase === 'undefined') {
+            setStatus(STATUS_OFFLINE, 'Библиотека supabase-js не загружена.');
+            return;
+        }
+        if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+            setStatus(
+                STATUS_OFFLINE,
+                'Подключение к хранилищу не настроено. Заполните SUPABASE_URL и SUPABASE_ANON_KEY в файле staff.js.'
+            );
+            return;
+        }
+        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        checkConnection();
+    }
+
+    async function checkConnection() {
+        try {
+            const { error } = await supabase.from('staff_files').select('id').limit(1);
+            if (error) throw error;
+            setStatus(STATUS_OK, 'Хранилище подключено. Можно обмениваться файлами.');
+            setReady(true);
+            loadFiles();
+        } catch (err) {
+            setStatus(
+                STATUS_ERROR,
+                `Не удалось подключиться к хранилищу: ${err.message || err}. Проверьте ключи в staff.js и выполните supabase-schema.sql.`
+            );
+        }
+    }
 
     // ---------------------------------------------------------------
     // Вспомогательные функции
@@ -53,9 +139,7 @@
     }
 
     function setReady(ready) {
-        [btnPick, taskTitle, taskDate, btnSubmit].forEach((el) => {
-            if (el) el.disabled = !ready;
-        });
+        if (btnPick) btnPick.disabled = !ready;
     }
 
     function formatBytes(bytes) {
@@ -98,41 +182,6 @@
             toast.classList.remove('staff-toast--show');
             setTimeout(() => toast.remove(), 400);
         }, 6000);
-    }
-
-    // ---------------------------------------------------------------
-    // Подключение к Supabase
-    // ---------------------------------------------------------------
-    function initSupabase() {
-        if (typeof window.supabase === 'undefined') {
-            setStatus(STATUS_OFFLINE, 'Библиотека supabase-js не загружена.');
-            return;
-        }
-        if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-            setStatus(
-                STATUS_OFFLINE,
-                'Подключение к хранилищу не настроено. Заполните SUPABASE_URL и SUPABASE_ANON_KEY в файле staff.js.'
-            );
-            return;
-        }
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        checkConnection();
-    }
-
-    async function checkConnection() {
-        try {
-            const { error } = await supabase.from('staff_files').select('id').limit(1);
-            if (error) throw error;
-            setStatus(STATUS_OK, 'Хранилище подключено. Можно обмениваться файлами и задачами.');
-            setReady(true);
-            loadFiles();
-            loadTasks();
-        } catch (err) {
-            setStatus(
-                STATUS_ERROR,
-                `Не удалось подключиться к хранилищу: ${err.message || err}. Проверьте ключи в staff.js и выполните supabase-schema.sql.`
-            );
-        }
     }
 
     // ---------------------------------------------------------------
@@ -206,6 +255,7 @@
             // а красивое имя файла храним в таблице staff_files и подставляем при скачивании.
             const safeExt = (file.name.match(/\.[a-zA-Z0-9]{1,10}$/) || [''])[0];
             const storagePath = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${safeExt}`;
+            const user = currentUser();
             try {
                 // 1. Сам файл — в Storage
                 const { error: upError } = await supabase.storage.from(BUCKET).upload(storagePath, file, {
@@ -218,7 +268,7 @@
                 const { error: dbError } = await supabase.from('staff_files').insert({
                     name: file.name,
                     size_bytes: file.size,
-                    author: 'Сотрудник', // позже подставим имя из логина
+                    author: user ? user.name : 'Сотрудник',
                     storage_path: storagePath,
                     file_type: file.type || null
                 });
@@ -232,20 +282,23 @@
         }
         fileInput.value = '';
         loadFiles();
-        if (dropzone) dropzone.hidden = true;
     }
 
     function downloadFile(path, name) {
         (async () => {
             try {
-                const { data, error } = await supabase.storage.from(BUCKET).createSignedUrl(path, 60);
+                // Скачиваем через download() — браузер вернёт blob,
+                // и мы сохраним файл под его исходным именем.
+                const { data, error } = await supabase.storage.from(BUCKET).download(path);
                 if (error) throw error;
+                const url = URL.createObjectURL(data);
                 const a = document.createElement('a');
-                a.href = data.signedUrl;
-                a.download = name || '';
+                a.href = url;
+                a.download = name || path;
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
             } catch (err) {
                 showToast(`Не удалось скачать файл: ${err.message}`, 'error');
             }
@@ -265,138 +318,12 @@
     }
 
     // ---------------------------------------------------------------
-    // Задачи и календарь
-    // ---------------------------------------------------------------
-    function taskGroupTitle(dateStr) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const date = new Date(dateStr + 'T00:00:00');
-        const diff = Math.round((date - today) / 86400000);
-        if (diff < 0) return 'Просрочено';
-        if (diff === 0) return 'Сегодня';
-        if (diff === 1) return 'Завтра';
-        return `Через ${diff} дн.`;
-    }
-
-    async function loadTasks() {
-        try {
-            const { data, error } = await supabase
-                .from('staff_tasks')
-                .select('*')
-                .order('due_date', { ascending: true });
-            if (error) throw error;
-
-            [tasksOverdue, tasksToday, tasksLater].forEach((el) => {
-                if (el) el.innerHTML = '';
-            });
-
-            if (!data || data.length === 0) {
-                if (tasksEmpty) tasksEmpty.hidden = false;
-                return;
-            }
-            if (tasksEmpty) tasksEmpty.hidden = true;
-
-            data.forEach((task) => {
-                const group = taskGroupTitle(task.due_date);
-                const li = document.createElement('li');
-                li.className = 'task-item' + (task.is_done ? ' task-item--done' : '');
-                li.innerHTML = `
-                    <button type="button" class="task-item__done" data-id="${task.id}" title="Отметить выполненным" aria-label="Отметить выполненным">
-                        <i class="fas ${task.is_done ? 'fa-circle-check' : 'fa-circle'}"></i>
-                    </button>
-                    <div class="task-item__body">
-                        <span class="task-item__title">${escapeHtml(task.title)}</span>
-                        <span class="task-item__meta">${taskGroupTitle(task.due_date)} · ${formatDate(task.due_date)}</span>
-                    </div>
-                    <button type="button" class="task-item__delete" data-id="${task.id}" title="Удалить задачу" aria-label="Удалить задачу">
-                        <i class="fas fa-trash"></i>
-                    </button>`;
-                if (group === 'Просрочено') tasksOverdue.appendChild(li);
-                else if (group === 'Сегодня' || group === 'Завтра') tasksToday.appendChild(li);
-                else tasksLater.appendChild(li);
-            });
-        } catch (err) {
-            setStatus(STATUS_ERROR, `Ошибка загрузки задач: ${err.message || err}`);
-        }
-    }
-
-    async function addTask(title, dueDate) {
-        try {
-            const { error } = await supabase.from('staff_tasks').insert({
-                title,
-                due_date: dueDate,
-                author: 'Сотрудник'
-            });
-            if (error) throw error;
-            showToast('Задача добавлена.', 'success');
-            taskTitle.value = '';
-            loadTasks();
-        } catch (err) {
-            showToast(`Не удалось добавить задачу: ${err.message}`, 'error');
-        }
-    }
-
-    async function toggleTask(id, done) {
-        try {
-            const { error } = await supabase.from('staff_tasks').update({ is_done: done }).eq('id', id);
-            if (error) throw error;
-            loadTasks();
-        } catch (err) {
-            showToast(`Не удалось обновить задачу: ${err.message}`, 'error');
-        }
-    }
-
-    async function deleteTask(id) {
-        if (!confirm('Удалить задачу?')) return;
-        try {
-            const { error } = await supabase.from('staff_tasks').delete().eq('id', id);
-            if (error) throw error;
-            loadTasks();
-        } catch (err) {
-            showToast(`Не удалось удалить задачу: ${err.message}`, 'error');
-        }
-    }
-
-    // ---------------------------------------------------------------
     // События интерфейса
     // ---------------------------------------------------------------
     function bindEvents() {
         if (btnPick && fileInput) {
             btnPick.addEventListener('click', () => fileInput.click());
             fileInput.addEventListener('change', () => uploadFiles(fileInput.files));
-        }
-
-        if (dropzone) {
-            ['dragenter', 'dragover'].forEach((evt) =>
-                dropzone.addEventListener(evt, (e) => {
-                    e.preventDefault();
-                    dropzone.classList.add('staff-dropzone--active');
-                })
-            );
-            ['dragleave', 'drop'].forEach((evt) =>
-                dropzone.addEventListener(evt, (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('staff-dropzone--active');
-                })
-            );
-            dropzone.addEventListener('drop', (e) => uploadFiles(e.dataTransfer.files));
-        }
-
-        // Загруженные файлы подсвечивают dropzone
-        if (btnPick) {
-            ['dragenter', 'dragover'].forEach((evt) =>
-                window.addEventListener(evt, (e) => {
-                    if (!supabase) return;
-                    e.preventDefault();
-                    if (dropzone) dropzone.hidden = false;
-                })
-            );
-            ['dragleave', 'drop'].forEach((evt) =>
-                window.addEventListener(evt, (e) => {
-                    if (!supabase) return;
-                    e.preventDefault();
-                })
-            );
         }
 
         fileListEl.addEventListener('click', (e) => {
@@ -408,32 +335,8 @@
             const del = e.target.closest('.staff-file__delete');
             if (del) deleteFile(del.dataset.id);
         });
-
-        if (taskForm) {
-            taskForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const title = taskTitle.value.trim();
-                const date = taskDate.value;
-                if (!title || !date) return;
-                addTask(title, date);
-            });
-        }
-
-        [tasksOverdue, tasksToday, tasksLater].forEach((el) => {
-            if (!el) return;
-            el.addEventListener('click', (e) => {
-                const done = e.target.closest('.task-item__done');
-                if (done) {
-                    const checked = !done.closest('.task-item').classList.contains('task-item--done');
-                    toggleTask(done.dataset.id, checked);
-                    return;
-                }
-                const del = e.target.closest('.task-item__delete');
-                if (del) deleteTask(del.dataset.id);
-            });
-        });
     }
 
     bindEvents();
-    initSupabase();
+    renderAuth();
 })();

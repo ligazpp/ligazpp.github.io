@@ -131,6 +131,11 @@ img {
   border: 0;
 }
 
+/* Атрибут hidden перекрывает любые display-правила */
+[hidden] {
+  display: none !important;
+}
+
 
 /* ============================================================================
    4. ОСНОВНАЯ СТРУКТУРА
@@ -1775,22 +1780,13 @@ p.law-paragraph {
   color: #d97706;
 }
 
-/* Сетка: файлы слева, задачи справа */
+/* Секция страницы */
 .section--staff .page-header {
   margin-bottom: 8px;
 }
 
-.staff-layout {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-@media (max-width: 900px) {
-  .staff-layout {
-    grid-template-columns: 1fr;
-  }
+.page-header .btn {
+  margin-top: 10px;
 }
 
 .staff-card {
@@ -1820,30 +1816,97 @@ p.law-paragraph {
   color: var(--color-text-secondary);
 }
 
-/* Зона перетаскивания файлов */
-.staff-dropzone {
+/* Экран входа */
+.staff-login {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.staff-card--login {
+  width: 100%;
+  max-width: 420px;
+  padding: 28px;
+  text-align: center;
+}
+
+.staff-login__icon {
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 20px;
-  border: 2px dashed var(--color-border-hover);
-  border-radius: 12px;
-  color: var(--color-text-secondary);
-  font-size: 14px;
-  text-align: center;
-  transition: border-color 150ms ease, background 150ms ease;
-}
-
-.staff-dropzone i {
-  font-size: 26px;
-  color: var(--color-primary);
-}
-
-.staff-dropzone--active {
-  border-color: var(--color-primary);
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  border-radius: 16px;
   background: var(--color-sidebar-active-bg);
+  color: var(--color-primary);
+  font-size: 26px;
+}
+
+.staff-login__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.staff-login__subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.staff-login__form {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.staff-login__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.staff-login__field span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.staff-login__field input {
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--color-text-primary);
+}
+
+.staff-login__field input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.staff-login__error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #7f1d1d;
+  font-size: 13px;
+}
+
+.staff-login__error i {
+  color: #dc2626;
+}
+
+.staff-user {
+  font-weight: 600;
+  color: var(--color-primary);
 }
 
 /* Список файлов */
@@ -1953,8 +2016,7 @@ p.law-paragraph {
   white-space: nowrap;
 }
 
-.staff-file__delete,
-.task-item__delete {
+.staff-file__delete {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1968,142 +2030,9 @@ p.law-paragraph {
   transition: background 150ms ease, color 150ms ease;
 }
 
-.staff-file__delete:hover,
-.task-item__delete:hover {
+.staff-file__delete:hover {
   background: #fef2f2;
   color: #dc2626;
-}
-
-/* Форма добавления задачи */
-.staff-task-form {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.staff-task-form__title {
-  flex: 1 1 180px;
-  padding: 10px 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  font-size: 14px;
-  font-family: inherit;
-  color: var(--color-text-primary);
-}
-
-.staff-task-form__title:focus,
-.staff-task-form__date input:focus {
-  outline: none;
-  border-color: var(--color-primary);
-}
-
-.staff-task-form__date {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  color: var(--color-text-secondary);
-}
-
-.staff-task-form__date input {
-  border: none;
-  font-size: 14px;
-  font-family: inherit;
-  color: var(--color-text-primary);
-  background: transparent;
-}
-
-/* Группы задач */
-.task-groups {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.task-group__title {
-  margin-bottom: 6px;
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  color: var(--color-text-secondary);
-}
-
-.task-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.task-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  background: var(--color-bg-light);
-}
-
-.task-item--done .task-item__title {
-  text-decoration: line-through;
-  color: var(--color-text-secondary);
-}
-
-.task-item__done {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border: none;
-  background: transparent;
-  color: var(--color-border-hover);
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.task-item__done:hover {
-  color: var(--color-primary);
-}
-
-.task-item--done .task-item__done {
-  color: var(--color-ok);
-}
-
-.task-item__body {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.task-item__title {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.task-item__meta {
-  display: block;
-  margin-top: 2px;
-  font-size: 12px;
-  color: var(--color-text-secondary);
-}
-
-.task-list__empty {
-  padding: 14px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--color-text-secondary);
-}
-
-.task-list__empty i {
-  margin-right: 4px;
 }
 
 /* Пояснение под блоками */
