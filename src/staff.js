@@ -201,7 +201,11 @@
         if (!files.length) return;
 
         for (const file of files) {
-            const storagePath = `${Date.now()}-${file.name.replace(/[^\wа-яё.-]+/gi, '_')}`;
+            // В названии файла в хранилище не должно быть кириллицы и пробелов —
+            // Supabase Storage их отвергает. Генерируем безопасное имя (дата + счётчик),
+            // а красивое имя файла храним в таблице staff_files и подставляем при скачивании.
+            const safeExt = (file.name.match(/\.[a-zA-Z0-9]{1,10}$/) || [''])[0];
+            const storagePath = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${safeExt}`;
             try {
                 // 1. Сам файл — в Storage
                 const { error: upError } = await supabase.storage.from(BUCKET).upload(storagePath, file, {
