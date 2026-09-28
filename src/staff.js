@@ -318,8 +318,8 @@
                         <div class="staff-file__name">${escapeHtml(file.name)}${isNew ? ' <span class="staff-file__badge">Новый' : ''}${isNew ? '</span>' : ''}</div>
                         <div class="staff-file__meta">
                             <span>${formatDateShort(file.created_at)}</span>
+                            <span class="staff-file__dot"></span>
                             <span>${escapeHtml(lastNameOf(file.author))}</span>
-                            <span class="staff-file__count">Скачано: ${Number(file.download_count || 0)}</span>
                         </div>
                     </div>
                     <div class="staff-file__actions">
@@ -388,23 +388,6 @@
                 a.click();
                 a.remove();
                 setTimeout(() => URL.revokeObjectURL(url), 1000);
-
-                // Увеличиваем счётчик «Скачано» (без перезагрузки списка)
-                if (id) {
-                    const countEl = fileListEl.querySelector(`[data-id="${id}"] .staff-file__count`);
-                    if (countEl) {
-                        const next = Number((countEl.textContent.match(/\d+/) || [0])[0]) + 1;
-                        countEl.textContent = `Скачано: ${next}`;
-                    }
-                    supabase.from('staff_files').select('download_count').eq('id', id).maybeSingle()
-                        .then(({ data: row, error: rErr }) => {
-                            if (rErr || !row) return;
-                            supabase.from('staff_files')
-                                .update({ download_count: Number(row.download_count || 0) + 1 })
-                                .eq('id', id);
-                        })
-                        .catch(() => {});
-                }
             } catch (err) {
                 showToast(`Не удалось скачать файл: ${err.message}`, 'error');
             }
