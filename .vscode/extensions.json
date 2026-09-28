@@ -1,0 +1,18 @@
+{
+  // Расширения, без которых работа с этим сайтом неудобна.
+  // При открытии папки ligazpp в VS Code появится предложение
+  // «Установить все рекомендованные расширения» — можно согласиться.
+  "recommendations": [
+    "ginfuru.better-nunjucks",
+    "davidanson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one",
+    "darkriszty.markdown-table-prettify",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-russian",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "usernamehw.errorlens",
+    "github.vscode-github-actions",
+    "eamodio.gitlens"
+  ]
+}

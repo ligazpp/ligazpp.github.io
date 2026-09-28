@@ -34,5 +34,23 @@
     "localRevision": "18.10.2023",
     "status": "ok",
     "checkedAt": "2026-09-24 09:17"
+  },
+  "obzor-praktiki-2022": {
+    "onlineRevision": "19.10.2022",
+    "localRevision": "19.10.2022",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
+  },
+  "obzor-praktiki-2021": {
+    "onlineRevision": "20.10.2021",
+    "localRevision": "20.10.2021",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
+  },
+  "postanovlenie-plenuma-17": {
+    "onlineRevision": "28.06.2012",
+    "localRevision": "28.06.2012",
+    "status": "ok",
+    "checkedAt": "2026-09-24 09:17"
   }
 }

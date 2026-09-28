@@ -1,0 +1,32 @@
+# Правила отступов и кодировки для сайта «Лига защитников потребителей».
+# Читают этот файл: расширение EditorConfig, программа Prettier, редактор.
+# Сам файл ничего не меняет — он только задаёт правила редактирования.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+# Шаблоны Nunjucks (.njk) — 4 пробела
+[*.njk]
+indent_size = 4
+
+# Стили (.css) — 2 пробела
+[*.css]
+indent_size = 2
+
+# Скрипты и данные (.js, .json) — 2 пробела
+[*.{js,mjs,cjs,json,jsonc}]
+indent_size = 2
+
+# Служебные файлы GitHub (.yml) — 2 пробела
+[*.{yml,yaml}]
+indent_size = 2
+
+# В Markdown две пробелы в конце строки — это перенос строки, их убирать нельзя
+[*.md]
+trim_trailing_whitespace = false

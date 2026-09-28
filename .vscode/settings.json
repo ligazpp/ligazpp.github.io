@@ -1,0 +1,84 @@
+{
+  // =========================================================
+  // Настройки VS Code для сайта «Лига защитников потребителей».
+  // Всё это относится только к папке ligazpp и на другие проекты не влияет.
+  // =========================================================
+
+  // ---------- Общие настройки редактора ----------
+  "editor.wordWrap": "on",
+  "editor.rulers": [120],
+  "editor.formatOnSave": false,
+  "editor.detectIndentation": true,
+  "editor.bracketPairColorization.enabled": true,
+
+  // ---------- Проводник: прячем служебное и уже собранное ----------
+  // _site — результат сборки, его не нужно править руками.
+  // Если нужно открыть собранный файл: ⌘P → ввести имя файла.
+  "files.exclude": {
+    "**/_site": true,
+    "**/node_modules": true,
+    "**/_backup": true,
+    "**/*.bak-*": true
+  },
+
+  // ---------- Орфография ----------
+  "cSpell.language": "ru,ru-ru,en",
+  "cSpell.diagnosticLevel": "warning",
+
+  // ---------- Markdown (.md) — контент сайта ----------
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "files.trimTrailingWhitespace": false,
+    "editor.quickSuggestions": { "other": true, "comments": false, "strings": false },
+    "editor.wordWrap": "on"
+  },
+
+  // ---------- Шаблоны Nunjucks (.njk) — разметка сайта ----------
+  "[njk]": {
+    "editor.formatOnSave": false,
+    "editor.tabSize": 4
+  },
+
+  // ---------- Автоформатирование: только служебные файлы ----------
+  // ВАЖНО: для .md и .njk автоформат выключен намеренно —
+  // он умеет переверстать тексты и «шапку» файла.
+  "[css]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[yaml]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+
+  // ---------- Умные подсказки HTML прямо в Markdown ----------
+  "emmet.includeLanguages": { "md": "html" },
+  "emmet.syntaxProfiles": { "md": "html" },
+
+  // ---------- Прочее ----------
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.encoding": "utf8",
+  "search.exclude": {
+    "**/_site": true,
+    "**/node_modules": true,
+    "**/_backup": true
+  }
+}

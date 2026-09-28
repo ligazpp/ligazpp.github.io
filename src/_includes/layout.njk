@@ -76,8 +76,8 @@
             <nav class="nav" id="siteNav" aria-label="Основное меню">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="{{ '/' | url }}" class="nav__link{% if active == 'home' %} nav__link--active{% endif %}">
-                            <span class="nav__text">Начало</span>
+                        <a href="{{ '/' | url }}" class="nav__link nav__link--home{% if active == 'home' %} nav__link--active{% endif %}" aria-label="На главную" title="На главную">
+                            <i class="fas fa-house"></i>
                         </a>
                     </li>
                     <li class="nav__item">

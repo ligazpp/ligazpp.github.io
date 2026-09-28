@@ -424,7 +424,6 @@ img {
 
 .btn--primary:hover {
   background-color: var(--color-primary-dark);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
@@ -437,7 +436,6 @@ img {
 .btn--outline:hover {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
-  transform: translateY(-2px);
 }
 
 .btn--large {
@@ -479,7 +477,7 @@ box-shadow: var(--shadow-lg);
 }
 
 .card--guide:hover {
-  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .card__header {
@@ -723,7 +721,6 @@ list-style: none;
 
 .grid-item:hover {
   border-left-color: var(--color-primary);
-  transform: scale(1.02);
   box-shadow: var(--shadow-lg);
 }
 
@@ -1010,28 +1007,41 @@ p.law-paragraph {
 }
 
 /* Баннер актуальности на странице закона */
+.law-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 20px;
+}
+
+.law-top .article-back {
+  margin-bottom: 0;
+}
+
+.law-top .law-banner {
+  margin: 0;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
 .law-banner {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 5px;
     border-radius: 18px;
     margin: 10px 0;
     font-size: 12px;
     line-height: 1;
+    width: fit-content;
 }
 
 .law-banner i {
     font-size: 20px;
     flex-shrink: 0;
     margin-top: 1px;
-}
-
-.law-banner__meta {
-    display: block;
-    font-size: 12px;
-    opacity: 0.75;
-    margin-top: 4px;
 }
 
 .law-banner--ok {
@@ -1052,6 +1062,13 @@ p.law-paragraph {
 
 .law-banner--update i {
     color: #ea580c;
+}
+
+.law-banner__meta {
+    display: block;
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 4px;
 }
 
 /* Оглавление закона (один аккордеон на всё содержание) */
@@ -1403,7 +1420,6 @@ p.law-paragraph {
 
 .scroll-top-btn:hover {
   background-color: var(--color-primary-dark);
-  transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -1669,7 +1685,6 @@ p.law-paragraph {
 
 /* ----- Лёгкие штрихи оформления ----- */
 .card:hover {
-  transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
 .btn:active {

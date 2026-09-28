@@ -27,16 +27,6 @@ active: zakon
                 <div>
                     <h3 class="grid-item__title">{{ laws[0].cardTitle }}</h3>
                     <p class="grid-item__text">({{ laws[0].cardNote }})</p>
-                    {% set zst = lawStatus['zpp'] %}
-                    {% if zst and (zst.status == 'ok' or zst.status == 'update') %}
-                    <span class="law-status law-status--{{ zst.status }}">
-                        {% if zst.status == 'ok' %}
-                            <i class="fas fa-circle-check"></i> Редакция от {{ zst.onlineRevision }}
-                        {% else %}
-                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ zst.onlineRevision }})
-                        {% endif %}
-                    </span>
-                    {% endif %}
                 </div>
             </a>
 
@@ -48,20 +38,10 @@ active: zakon
                 <div>
                     <h3 class="grid-item__title">{{ laws[2].cardTitle }}</h3>
                     <p class="grid-item__text">({{ laws[2].cardNote }})</p>
-                    {% set sst = lawStatus['pravila-soyuza'] %}
-                    {% if sst and (sst.status == 'ok' or sst.status == 'update') %}
-                    <span class="law-status law-status--{{ sst.status }}">
-                        {% if sst.status == 'ok' %}
-                            <i class="fas fa-circle-check"></i> Редакция от {{ sst.onlineRevision }}
-                        {% else %}
-                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ sst.onlineRevision }})
-                        {% endif %}
-                    </span>
-                    {% endif %}
                 </div>
             </a>
 
-            <a href="{{ laws[1].textUrl }}#pravila"
+            <a href="{{ laws[1].textUrl }}"
                class="grid-item">
                 <div class="grid-item__icon">
                     <i class="fas {{ laws[1].icon }}"></i>
@@ -69,16 +49,6 @@ active: zakon
                 <div>
                     <h3 class="grid-item__title">{{ laws[1].cardTitle }}</h3>
                     <p class="grid-item__text">({{ laws[1].cardNote }})</p>
-                    {% set pst = lawStatus['pravila'] %}
-                    {% if pst and (pst.status == 'ok' or pst.status == 'update') %}
-                    <span class="law-status law-status--{{ pst.status }}">
-                        {% if pst.status == 'ok' %}
-                            <i class="fas fa-circle-check"></i> Редакция от {{ pst.onlineRevision }}
-                        {% else %}
-                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ pst.onlineRevision }})
-                        {% endif %}
-                    </span>
-                    {% endif %}
                 </div>
             </a>
 
@@ -90,20 +60,10 @@ active: zakon
                 <div>
                     <h3 class="grid-item__title">{{ laws[3].cardTitle }}</h3>
                     <p class="grid-item__text">({{ laws[3].cardNote }})</p>
-                    {% set tst = lawStatus['perechen-tehslozhnykh'] %}
-                    {% if tst and (tst.status == 'ok' or tst.status == 'update') %}
-                    <span class="law-status law-status--{{ tst.status }}">
-                        {% if tst.status == 'ok' %}
-                            <i class="fas fa-circle-check"></i> Редакция от {{ tst.onlineRevision }}
-                        {% else %}
-                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ tst.onlineRevision }})
-                        {% endif %}
-                    </span>
-                    {% endif %}
                 </div>
             </a>
 
-            <a href="/zakon/657/#perechen-obmenu"
+            <a href="/zakon/pravila-prodazi/#perechen-obmenu"
                class="grid-item">
                 <div class="grid-item__icon">
                     <i class="fas fa-ban"></i>
@@ -114,7 +74,7 @@ active: zakon
                 </div>
             </a>
 
-            <a href="/zakon/657/#perechen-dlitelnogo"
+            <a href="/zakon/pravila-prodazi/#perechen-dlitelnogo"
                class="grid-item">
                 <div class="grid-item__icon">
                     <i class="fas fa-tools"></i>
@@ -141,16 +101,6 @@ active: zakon
                 <div>
                     <h3 class="grid-item__title">{{ laws[4].cardTitle }}</h3>
                     <p class="grid-item__text">({{ laws[4].cardNote }})</p>
-                    {% set ost = lawStatus['obzor-praktiki-2024'] %}
-                    {% if ost and (ost.status == 'ok' or ost.status == 'update') %}
-                    <span class="law-status law-status--{{ ost.status }}">
-                        {% if ost.status == 'ok' %}
-                            <i class="fas fa-circle-check"></i> Редакция от {{ ost.onlineRevision }}
-                        {% else %}
-                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ ost.onlineRevision }})
-                        {% endif %}
-                    </span>
-                    {% endif %}
                 </div>
             </a>
 
@@ -162,60 +112,41 @@ active: zakon
                 <div>
                     <h3 class="grid-item__title">{{ laws[5].cardTitle }}</h3>
                     <p class="grid-item__text">({{ laws[5].cardNote }})</p>
-                    {% set ost23 = lawStatus['obzor-praktiki-2023'] %}
-                    {% if ost23 and (ost23.status == 'ok' or ost23.status == 'update') %}
-                    <span class="law-status law-status--{{ ost23.status }}">
-                        {% if ost23.status == 'ok' %}
-                            <i class="fas fa-circle-check"></i> Редакция от {{ ost23.onlineRevision }}
-                        {% else %}
-                            <i class="fas fa-triangle-exclamation"></i> Есть новая редакция ({{ ost23.onlineRevision }})
-                        {% endif %}
-                    </span>
-                    {% endif %}
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_429712/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="{{ laws[6].textUrl }}"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-scale-balanced"></i>
+                    <i class="fas {{ laws[6].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Обзор судебной практики (2022)</h3>
-                    <p class="grid-item__text">(утв. Президиумом ВС РФ 19.10.2022)</p>
+                    <h3 class="grid-item__title">{{ laws[6].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[6].cardNote }})</p>
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_95390/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="{{ laws[7].textUrl }}"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-scale-balanced"></i>
+                    <i class="fas {{ laws[7].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Обзор судебной практики (2021)</h3>
-                    <p class="grid-item__text">(утв. Президиумом ВС РФ 20.10.2021)</p>
+                    <h3 class="grid-item__title">{{ laws[7].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[7].cardNote }})</p>
                 </div>
             </a>
 
-            <a href="https://www.consultant.ru/document/cons_doc_LAW_131885/"
-               class="grid-item"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="{{ laws[8].textUrl }}"
+               class="grid-item">
                 <div class="grid-item__icon">
-                    <i class="fas fa-gavel"></i>
+                    <i class="fas {{ laws[8].icon }}"></i>
                 </div>
                 <div>
-                    <h3 class="grid-item__title">Постановление Пленума ВС РФ «О рассмотрении судами гражданских дел по спорам о защите прав потребителей»</h3>
-                    <p class="grid-item__text">№ 17 от 28.06.2012</p>
+                    <h3 class="grid-item__title">{{ laws[8].cardTitle }}</h3>
+                    <p class="grid-item__text">({{ laws[8].cardNote }})</p>
                 </div>
             </a>
-        </div>
-        <div class="section__subtitle">
-            * Законы и правила продажи размещены здесь полностью; остальные акты — на сайте «КонсультантПлюс»
         </div>
 
     </div>

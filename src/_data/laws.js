@@ -23,7 +23,7 @@ module.exports = [
     cardNote: 'утв. Постановлением Правительства РФ № 657 от 30.05.2026',
     lastRevision: '29.08.2026', // редакция с учётом изменений № 1112 от 29.08.2026
     officialUrl: 'http://pravo.gov.ru/proxy/ips/?docbody=&nd=610254725',
-    textUrl: '/zakon/657/',
+    textUrl: '/zakon/pravila-prodazi/',
     icon: 'fa-store'
   },
   {
@@ -81,5 +81,47 @@ module.exports = [
     officialUrl: 'https://www.consultant.ru/document/cons_doc_LAW_460140/',
     textUrl: '/zakon/obzor-praktiki-2023/',
     icon: 'fa-scale-balanced'
+  },
+  {
+    slug: 'obzor-praktiki-2022',
+    source: 'consultant',
+    docId: '429712', // идентификатор документа на сайте КонсультантПлюс
+    title: 'Обзор судебной практики по делам о защите прав потребителей (2022)',
+    subtitle: 'утв. Президиумом Верховного Суда РФ 19.10.2022',
+    cardTitle: 'Обзор судебной практики (2022)',
+    cardNote: 'утв. Президиумом Верховного Суда РФ 19.10.2022',
+    adopted: '19.10.2022', // дата принятия (исходная редакция)
+    lastRevision: '19.10.2022', // текущая редакция (изменений нет)
+    officialUrl: 'https://www.consultant.ru/document/cons_doc_LAW_429712/',
+    textUrl: '/zakon/obzor-praktiki-2022/',
+    icon: 'fa-scale-balanced'
+  },
+  {
+    slug: 'obzor-praktiki-2021',
+    source: 'consultant',
+    docId: '95390', // идентификатор документа на сайте КонсультантПлюс
+    title: 'Обзор судебной практики по делам о защите прав потребителей (2021)',
+    subtitle: 'утв. Президиумом Верховного Суда РФ 20.10.2021',
+    cardTitle: 'Обзор судебной практики (2021)',
+    cardNote: 'утв. Президиумом Верховного Суда РФ 20.10.2021',
+    adopted: '20.10.2021', // дата принятия (исходная редакция)
+    lastRevision: '20.10.2021', // текущая редакция (изменений нет)
+    officialUrl: 'https://www.consultant.ru/document/cons_doc_LAW_95390/',
+    textUrl: '/zakon/obzor-praktiki-2021/',
+    icon: 'fa-scale-balanced'
+  },
+  {
+    slug: 'postanovlenie-plenuma-17',
+    source: 'consultant',
+    docId: '131885', // идентификатор документа на сайте КонсультантПлюс
+    title: 'Постановление Пленума Верховного Суда РФ от 28.06.2012 № 17 «О рассмотрении судами гражданских дел по спорам о защите прав потребителей»',
+    subtitle: 'разъяснения Пленума Верховного Суда РФ для судов по делам о защите прав потребителей',
+    cardTitle: 'Постановление Пленума ВС РФ «О рассмотрении судами гражданских дел по спорам о защите прав потребителей»',
+    cardNote: '№ 17 от 28.06.2012',
+    adopted: '28.06.2012', // дата принятия (исходная редакция)
+    lastRevision: '28.06.2012', // текущая редакция (изменений нет)
+    officialUrl: 'https://www.consultant.ru/document/cons_doc_LAW_131885/',
+    textUrl: '/zakon/postanovlenie-plenuma-17/',
+    icon: 'fa-gavel'
   }
 ];

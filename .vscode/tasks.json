@@ -1,0 +1,69 @@
+{
+  // =========================================================
+  // Готовые команды для работы с сайтом.
+  // Запуск: ⌘⇧P → «Tasks: Run Task» (или «Run Build Task»).
+  // Внизу справа есть кнопка со списком задач.
+  // =========================================================
+  "version": "2.0.0",
+  "tasks": [
+    {
+      // Главная задача: поднимает сайт на http://localhost:8080/
+      // Страница в браузере обновляется сама после каждого сохранения файла.
+      "label": "Сайт: запустить (localhost:8080)",
+      "type": "npm",
+      "script": "dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "eleventy",
+        "pattern": { "regexp": "^$" },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*\\[11ty\\] Watching.*",
+          "endsPattern": ".*\\[11ty\\] Server at.*"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Сайт: проверить законы",
+      "detail": "Проверяет ссылки и статусы законов (npm run laws:check)",
+      "type": "npm",
+      "script": "laws:check",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Сайт: собрать (проверка перед публикацией)",
+      "detail": "Собирает готовые страницы в папку _site (npm run build)",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": "test"
+    },
+    {
+      "label": "Сайт: проверить и собрать",
+      "detail": "Сначала проверка законов, затем сборка. Запускать перед отправкой на GitHub.",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Сайт: проверить законы",
+        "Сайт: собрать (проверка перед публикацией)"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
