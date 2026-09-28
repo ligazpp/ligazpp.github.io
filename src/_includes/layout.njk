@@ -6,6 +6,7 @@
     <title>{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
     <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
     {% if site.yandexVerification %}<meta name="yandex-verification" content="{{ site.yandexVerification }}">{% endif %}
+    {% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
     <link rel="canonical" href="{{ siteUrl }}{{ page.url | replace(pathPrefix, '') }}">
 
     <!-- Open Graph -->
@@ -68,6 +69,12 @@
                     <span class="logo__text">{{ site.name }}</span>
                 </a>
 
+                {% if active == 'home' %}
+                <a href="{{ '/staff/' | url }}" class="staff-link" title="Служебная страница" aria-label="Служебная страница сотрудников">
+                    <i class="fas fa-people-group"></i>
+                </a>
+                {% endif %}
+
                 <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -129,5 +136,10 @@
     </button>
 
     <script src="{{ '/script.js' | url }}" defer></script>
+
+    {% if '/staff/' in page.url %}
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="{{ '/staff.js' | url }}" defer></script>
+    {% endif %}
 </body>
 </html>

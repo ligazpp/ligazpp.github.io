@@ -1699,3 +1699,476 @@ p.law-paragraph {
 .faq-question:hover {
   background-color: var(--color-sidebar-active-bg);
 }
+
+/* ============================================================================
+   СЛУЖЕБНАЯ СТРАНИЦА СОТРУДНИКОВ (/staff/)
+   ============================================================================ */
+
+/* Иконка «People» в шапке (только на главной) */
+.staff-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+  border-radius: 10px;
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.staff-link:hover {
+  background: var(--color-sidebar-active-bg);
+  color: var(--color-primary);
+}
+
+/* Строка статуса подключения */
+.staff-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin: 4px 0 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.staff-status i {
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.staff-status--initial {
+  background: var(--color-sidebar-active-bg);
+  color: var(--color-text-secondary);
+}
+
+.staff-status--ok {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #14532d;
+}
+
+.staff-status--ok i {
+  color: var(--color-ok);
+}
+
+.staff-status--error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #7f1d1d;
+}
+
+.staff-status--error i {
+  color: #dc2626;
+}
+
+.staff-status--offline {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #78350f;
+}
+
+.staff-status--offline i {
+  color: #d97706;
+}
+
+/* Сетка: файлы слева, задачи справа */
+.section--staff .page-header {
+  margin-bottom: 8px;
+}
+
+.staff-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .staff-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.staff-card {
+  padding: 20px;
+}
+
+.staff-card .card__header {
+  margin-bottom: 14px;
+}
+
+.staff-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Панель инструментов */
+.staff-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.staff-toolbar__hint {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* Зона перетаскивания файлов */
+.staff-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  border: 2px dashed var(--color-border-hover);
+  border-radius: 12px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  text-align: center;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.staff-dropzone i {
+  font-size: 26px;
+  color: var(--color-primary);
+}
+
+.staff-dropzone--active {
+  border-color: var(--color-primary);
+  background: var(--color-sidebar-active-bg);
+}
+
+/* Список файлов */
+.file-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 460px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.file-list__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 24px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  text-align: center;
+}
+
+.file-list__empty i {
+  font-size: 26px;
+  opacity: 0.5;
+}
+
+.staff-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg-light);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.staff-file:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.staff-file--new {
+  border-color: var(--color-primary);
+  background: var(--color-sidebar-active-bg);
+}
+
+.staff-file__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--color-sidebar-active-bg);
+  color: var(--color-primary);
+  font-size: 16px;
+}
+
+.staff-file__info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.staff-file__name {
+  font-weight: 600;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.staff-file__meta {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+}
+
+.staff-file__badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.staff-file__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.staff-file__actions .btn {
+  white-space: nowrap;
+}
+
+.staff-file__delete,
+.task-item__delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.staff-file__delete:hover,
+.task-item__delete:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* Форма добавления задачи */
+.staff-task-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.staff-task-form__title {
+  flex: 1 1 180px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text-primary);
+}
+
+.staff-task-form__title:focus,
+.staff-task-form__date input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.staff-task-form__date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text-secondary);
+}
+
+.staff-task-form__date input {
+  border: none;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  background: transparent;
+}
+
+/* Группы задач */
+.task-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-group__title {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--color-text-secondary);
+}
+
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg-light);
+}
+
+.task-item--done .task-item__title {
+  text-decoration: line-through;
+  color: var(--color-text-secondary);
+}
+
+.task-item__done {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  color: var(--color-border-hover);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.task-item__done:hover {
+  color: var(--color-primary);
+}
+
+.task-item--done .task-item__done {
+  color: var(--color-ok);
+}
+
+.task-item__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.task-item__title {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-item__meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.task-list__empty {
+  padding: 14px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.task-list__empty i {
+  margin-right: 4px;
+}
+
+/* Пояснение под блоками */
+.staff-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--color-sidebar-active-bg);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.staff-note i {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* Всплывающие уведомления (тосты) */
+.staff-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 360px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.staff-toast--show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.staff-toast--success {
+  background: #14532d;
+}
+
+.staff-toast--error {
+  background: #7f1d1d;
+}
+
+.staff-toast i {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+  .staff-toast {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+  }
+}

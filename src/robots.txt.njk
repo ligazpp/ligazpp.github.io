@@ -4,6 +4,7 @@ permalink: /robots.txt
 ---
 User-agent: *
 Allow: /
+Disallow: /staff/
 {% if noindex %}Disallow: /
 {% else %}Host: {{ siteUrl }}
 {% endif %}

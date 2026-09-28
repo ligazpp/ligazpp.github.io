@@ -1,0 +1,123 @@
+---
+layout: layout.njk
+title: Служебная страница
+description: "Служебная страница для сотрудников Лиги: обмен файлами, задачи и календарь."
+noindex: true
+---
+
+<!-- СЛУЖЕБНАЯ СТРАНИЦА ДЛЯ СОТРУДНИКОВ -->
+<section class="section section--staff">
+    <div class="container">
+
+        <header class="page-header">
+            <h1 class="page-header__title">
+                <i class="fas fa-users"></i> Служебная страница
+            </h1>
+            <p class="page-header__subtitle">
+                Обмен файлами, задачи и календарь для сотрудников Лиги.
+            </p>
+        </header>
+
+        <!-- Строка статуса подключения к Supabase -->
+        <p class="staff-status staff-status--initial" id="staffStatus" data-state="initial">
+            <i class="fas fa-circle-info"></i>
+            <span id="staffStatusText">Проверяю подключение к хранилищу…</span>
+        </p>
+
+        <div class="staff-layout">
+            <!-- Файлы -->
+            <div class="card staff-card staff-card--files">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h2 class="card__title">Файлы</h2>
+                </div>
+
+                <div class="staff-card__body">
+                    <div class="staff-toolbar">
+                        <button type="button" class="btn btn--primary btn--small" id="staffFilePick" disabled>
+                            <i class="fas fa-upload"></i> Загрузить файл
+                        </button>
+                        <input type="file" id="staffFileInput" class="staff-file-input" multiple hidden>
+                        <span class="staff-toolbar__hint" id="staffFileHint"></span>
+                    </div>
+
+                    <div class="staff-dropzone" id="staffDropzone" hidden>
+                        <i class="fas fa-cloud-arrow-up"></i>
+                        <p>Перетащите файлы сюда или нажмите «Загрузить файл»</p>
+                    </div>
+
+                    <ul class="file-list" id="staffFileList">
+                        <li class="file-list__empty" id="staffFileListEmpty">
+                            <i class="fas fa-inbox"></i>
+                            Файлов пока нет. Загрузите первый файл.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Задачи и календарь -->
+            <div class="card staff-card staff-card--tasks">
+                <div class="card__header">
+                    <div class="card__icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h2 class="card__title">Задачи и календарь</h2>
+                </div>
+
+                <div class="staff-card__body">
+                    <form class="staff-task-form" id="staffTaskForm">
+                        <input
+                            type="text"
+                            id="staffTaskTitle"
+                            class="staff-task-form__title"
+                            placeholder="Новая задача…"
+                            maxlength="200"
+                            autocomplete="off"
+                            disabled>
+                        <label class="staff-task-form__date">
+                            <i class="fas fa-calendar-day"></i>
+                            <input type="date" id="staffTaskDate" disabled>
+                        </label>
+                        <button type="submit" class="btn btn--primary btn--small" id="staffTaskSubmit" disabled>
+                            <i class="fas fa-plus"></i> Добавить
+                        </button>
+                    </form>
+
+                    <div class="task-groups">
+                        <div class="task-group">
+                            <h3 class="task-group__title">
+                                <i class="fas fa-fire"></i> Просроченные
+                            </h3>
+                            <ul class="task-list task-list--overdue" id="staffTasksOverdue"></ul>
+                        </div>
+                        <div class="task-group">
+                            <h3 class="task-group__title">
+                                <i class="fas fa-clock"></i> На сегодня и скоро
+                            </h3>
+                            <ul class="task-list task-list--today" id="staffTasksToday"></ul>
+                        </div>
+                        <div class="task-group">
+                            <h3 class="task-group__title">
+                                <i class="fas fa-list-check"></i> По календарю
+                            </h3>
+                            <ul class="task-list task-list--later" id="staffTasksLater"></ul>
+                        </div>
+                    </div>
+
+                    <p class="task-list__empty" id="staffTasksEmpty" hidden>
+                        <i class="fas fa-robot"></i> Задач пока нет.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <p class="staff-note">
+            <i class="fas fa-lock"></i>
+            Это служебная страница для сотрудников Лиги. Раздел «Логин / пароль» будет подключён на следующем
+            этапе разработки, до этого страница доступна по прямой ссылке.
+        </p>
+
+    </div>
+</section>
