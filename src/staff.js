@@ -21,6 +21,8 @@
 
     // Ключ localStorage с датой последнего визита для бейджа «Новый файл»
     const LAST_VISIT_KEY = 'staffLastVisit';
+    // Ключ localStorage с сохранённой копией списка файлов (без связи с сервером)
+    const FILES_CACHE_KEY = 'staffFilesCache';
 
     let supabase = null;
     let currentUserName = 'Сотрудник'; // имя автора для файлов
@@ -214,6 +216,23 @@
         return div.innerHTML;
     }
 
+    // Дата в формате ДД.ММ.ГГГГ
+    function formatDateShort(value) {
+        if (!value) return '';
+        const d = new Date(value);
+        if (Number.isNaN(d.getTime())) return '';
+        const dd = String(d.getDate()).padStart(2, '0');
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        return `${dd}.${mm}.${d.getFullYear()}`;
+    }
+
+    // Фамилия — первое слово из полного имени («Филин Александр Сергеевич» → «Филин»)
+    function lastNameOf(name) {
+        if (!name) return 'Сотрудник';
+        const parts = String(name).trim().split(/\s+/).filter(Boolean);
+        return parts[0] || name;
+    }
+
     // Всплывающее уведомление (тост)
     function showToast(message, type) {
         const toast = document.createElement('div');
@@ -237,22 +256,60 @@
 
     async function loadFiles() {
         try {
+            setReady(false);
             const { data, error } = await supabase
                 .from('staff_files')
                 .select('*')
                 .order('created_at', { ascending: false });
             if (error) throw error;
 
-            fileListEl.querySelectorAll('.staff-file').forEach((el) => el.remove());
-            toggleEmpty(!data || data.length === 0);
+            if (data) {
+                try {
+                    localStorage.setItem(FILES_CACHE_KEY, JSON.stringify({ saved: Date.now(), files: data }));
+                } catch (e) {
+                    // кэш может быть переполнен — не критично
+                }
+            }
 
-            if (!data || data.length === 0) return;
+            renderFileList(data || []);
+            setReady(true);
+        } catch (err) {
+            // Нет связи с сервером — показываем сохранённую копию списка
+            const cached = loadCachedFiles();
+            if (cached && cached.length) {
+                renderFileList(cached);
+                setReady(true);
+                showToast('Нет связи с хранилищем. Показана сохранённая копия списка файлов.', 'error');
+            } else {
+                setReady(true);
+                showToast(`Не удалось загрузить список файлов: ${err.message || err}`, 'error');
+            }
+        }
+    }
 
-            const lastVisit = Number(localStorage.getItem(LAST_VISIT_KEY) || 0);
-            const now = Date.now();
+    // Список файлов из локального кэша (работает без связи с сервером)
+    function loadCachedFiles() {
+        try {
+            const raw = localStorage.getItem(FILES_CACHE_KEY);
+            if (!raw) return null;
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed.files) ? parsed.files : null;
+        } catch (e) {
+            return null;
+        }
+    }
 
-            data.forEach((file, index) => {
-                const isNew = lastVisit > 0 && new Date(file.created_at).getTime() > lastVisit;
+    function renderFileList(data) {
+        fileListEl.querySelectorAll('.staff-file').forEach((el) => el.remove());
+        toggleEmpty(!data || data.length === 0);
+
+        if (!data || data.length === 0) return;
+
+        const lastVisit = Number(localStorage.getItem(LAST_VISIT_KEY) || 0);
+        const now = Date.now();
+
+        data.forEach((file) => {
+            const isNew = lastVisit > 0 && new Date(file.created_at).getTime() > lastVisit;
                 const li = document.createElement('li');
                 li.className = 'staff-file' + (isNew ? ' staff-file--new' : '');
                 li.innerHTML = `
@@ -260,8 +317,9 @@
                     <div class="staff-file__info">
                         <div class="staff-file__name">${escapeHtml(file.name)}${isNew ? ' <span class="staff-file__badge">Новый' : ''}${isNew ? '</span>' : ''}</div>
                         <div class="staff-file__meta">
+                            <span>${formatDateShort(file.created_at)}</span>
+                            <span>${escapeHtml(lastNameOf(file.author))}</span>
                             <span class="staff-file__count">Скачано: ${Number(file.download_count || 0)}</span>
-                            <span class="staff-file__author">${escapeHtml(file.author || 'Сотрудник')}</span>
                         </div>
                     </div>
                     <div class="staff-file__actions">
@@ -275,11 +333,8 @@
                 fileListEl.appendChild(li);
             });
 
-            // Новая дата последнего визита — «новизна» сохранится лишь до следующего визита
-            localStorage.setItem(LAST_VISIT_KEY, String(now));
-        } catch (err) {
-            showToast(`Ошибка загрузки списка файлов: ${err.message || err}`, 'error');
-        }
+        // Новая дата последнего визита — «новизна» сохранится лишь до следующего визита
+        localStorage.setItem(LAST_VISIT_KEY, String(now));
     }
 
     async function uploadFiles(fileList) {

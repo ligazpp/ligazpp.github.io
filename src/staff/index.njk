@@ -43,10 +43,10 @@ noindex: true
 
         <!-- Рабочая область (скрыта, пока не выполнен вход) -->
         <div class="staff-content" id="staffContent" hidden>
-            <!-- Шапка раздела -->
+            <!-- Шапка страницы -->
             <div class="staff-topbar">
                 <h2 class="staff-topbar__title">
-                    <i class="fas fa-cloud"></i> Облачное хранилище
+                    <i class="fas fa-users"></i> Служебная страница
                 </h2>
                 <div class="staff-topbar__actions">
                     <span class="staff-user" id="staffUserLabel"></span>
@@ -56,31 +56,51 @@ noindex: true
                 </div>
             </div>
 
-            <!-- Окно файлов в стиле macOS -->
-            <div class="staff-window staff-window--files">
-                <div class="staff-window__bar">
-                    <div class="staff-window__traffic" aria-hidden="true">
-                        <span class="staff-login__dot staff-login__dot--close"></span>
-                        <span class="staff-login__dot staff-login__dot--mini"></span>
-                        <span class="staff-login__dot staff-login__dot--zoom"></span>
+            <!-- Две рабочие области по 50% -->
+            <div class="staff-layout">
+                <!-- Окно «Облачное хранилище» -->
+                <div class="staff-window staff-window--files">
+                    <div class="staff-window__bar">
+                        <div class="staff-window__traffic" aria-hidden="true">
+                            <span class="staff-login__dot staff-login__dot--close"></span>
+                            <span class="staff-login__dot staff-login__dot--mini"></span>
+                            <span class="staff-login__dot staff-login__dot--zoom"></span>
+                        </div>
+                        <span class="staff-window__title">Облачное хранилище</span>
                     </div>
-                    <span class="staff-window__title">Файлы</span>
-                </div>
-                <div class="staff-window__body">
-                    <div class="staff-toolbar">
-                        <button type="button" class="btn btn--primary btn--small" id="staffFilePick" disabled>
-                            <i class="fas fa-upload"></i> Отправить файл
-                        </button>
-                        <input type="file" id="staffFileInput" multiple hidden>
-                        <span class="staff-toolbar__hint" id="staffFileHint"></span>
-                    </div>
+                    <div class="staff-window__body">
+                        <div class="staff-toolbar">
+                            <button type="button" class="btn btn--primary btn--small" id="staffFilePick" disabled>
+                                <i class="fas fa-upload"></i> Отправить файл
+                            </button>
+                            <input type="file" id="staffFileInput" multiple hidden>
+                            <span class="staff-toolbar__hint" id="staffFileHint"></span>
+                        </div>
 
-                    <ul class="file-list" id="staffFileList">
-                        <li class="file-list__empty" id="staffFileListEmpty">
-                            <i class="fas fa-inbox"></i>
-                            Файлов пока нет. Загрузите первый файл.
-                        </li>
-                    </ul>
+                        <ul class="file-list" id="staffFileList">
+                            <li class="file-list__empty" id="staffFileListEmpty">
+                                <i class="fas fa-inbox"></i>
+                                Файлов пока нет. Загрузите первый файл.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Окно «Информация» (пока без наполнения) -->
+                <div class="staff-window staff-window--info">
+                    <div class="staff-window__bar">
+                        <div class="staff-window__traffic" aria-hidden="true">
+                            <span class="staff-login__dot staff-login__dot--close"></span>
+                            <span class="staff-login__dot staff-login__dot--mini"></span>
+                            <span class="staff-login__dot staff-login__dot--zoom"></span>
+                        </div>
+                        <span class="staff-window__title">Информация</span>
+                    </div>
+                    <div class="staff-window__body">
+                        <p class="staff-window__placeholder" id="staffInfoPlaceholder">
+                            Здесь появится справочная информация для сотрудников.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
