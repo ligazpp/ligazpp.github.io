@@ -12,9 +12,15 @@ noindex: true
         <!-- Экран входа -->
         <div class="staff-login" id="staffLogin">
             <div class="card staff-card staff-card--login">
-                <div class="staff-login__icon"><i class="fas fa-user-lock"></i></div>
-                <h2 class="staff-login__title">Вход для сотрудников</h2>
-                <p class="staff-login__subtitle">Введите логин и пароль, выданные администратором.</p>
+                <div class="staff-login__traffic" aria-hidden="true">
+                    <span class="staff-login__dot staff-login__dot--close">
+                        <a href="{{ '/' | url }}" aria-label="Закрыть окно" title="Закрыть">
+                            <i class="fas fa-xmark"></i>
+                        </a>
+                    </span>
+                    <span class="staff-login__dot staff-login__dot--mini" title="Свернуть"></span>
+                    <span class="staff-login__dot staff-login__dot--zoom" title="Развернуть"></span>
+                </div>
 
                 <form class="staff-login__form" id="staffLoginForm">
                     <label class="staff-login__field">
@@ -28,8 +34,8 @@ noindex: true
                     <p class="staff-login__error" id="staffLoginError" hidden>
                         <i class="fas fa-circle-exclamation"></i> Неверный логин или пароль.
                     </p>
-                    <button type="submit" class="btn btn--primary btn--large">
-                        <i class="fas fa-right-to-bracket"></i> Войти
+                    <button type="submit" class="btn btn--small">
+                        Войти
                     </button>
                 </form>
             </div>

@@ -28,6 +28,7 @@
 
     let supabase = null;
     let currentUserName = 'Сотрудник'; // имя автора для файлов
+    let lastLoginErrorText = '';       // последний текст ошибки входа
 
     // DOM-элементы
     const loginEl = document.getElementById('staffLogin');
@@ -125,27 +126,25 @@
         if (!raw) return;
         // Подставляем домен, если введён только логин («afilin» → «afilin@liga.local»)
         const email = raw.includes('@') ? raw : raw + EMAIL_DOMAIN;
-        supabase.auth.signInWithPassword({ email, password: loginPass.value || '' })
+        attemptSignIn(email, loginPass.value || '');
+    }
+
+    function isNetworkError(message) {
+        return /load failed|failed to fetch|network|fetch/i.test(message || '');
+    }
+
+    // Пробуем войти; при сбое сети делаем несколько повторных попыток
+    function attemptSignIn(email, password, attempt) {
+        attempt = attempt || 1;
+        supabase.auth.signInWithPassword({ email, password })
             .then(({ error }) => {
                 if (error) {
-                    // Показываем понятную причину вместо общего сообщения
-                    const code = error.code || '';
-                    const msg = error.message || '';
-                    let text;
-                    if (code === 'invalid_credentials' || /invalid login credentials/i.test(msg)) {
-                        text = 'Неверный логин или пароль. Проверьте написание (логин — «afilin» или «afilin@liga.local»).';
-                    } else if (code === 'email_not_confirmed' || /email not confirmed/i.test(msg)) {
-                        text = 'Адрес не подтверждён. Подтвердите пользователя в панели Supabase (Authentication → Users) или выполните SQL из инструкции.';
-                    } else if (code === 'user_banned') {
-                        text = 'Этот пользователь заблокирован в панели Supabase.';
-                    } else if (code === 'over_email_send_rate_limit') {
-                        text = 'Слишком много попыток подряд. Подождите минуту и повторите.';
-                    } else if (msg) {
-                        text = msg;
-                    } else {
-                        text = 'Не удалось выполнить вход.';
+                    // Кратковременный сбой сети — пробуем снова
+                    if (isNetworkError(error.message) && attempt < 3) {
+                        setTimeout(() => attemptSignIn(email, password, attempt + 1), 800);
+                        return;
                     }
-                    showLoginError(text);
+                    onceAfterNetworkError(showLoginError, describeError(error));
                 } else {
                     if (loginError) loginError.hidden = true;
                     loginUser.value = '';
@@ -153,8 +152,41 @@
                 }
             })
             .catch((err) => {
-                showLoginError((err && err.message) || 'Сбой при подключении к серверу входа.');
+                if (isNetworkError(err && err.message) && attempt < 3) {
+                    setTimeout(() => attemptSignIn(email, password, attempt + 1), 800);
+                    return;
+                }
+                onceAfterNetworkError(showLoginError, (err && err.message) || 'Сбой при подключении к серверу входа.');
             });
+    }
+
+    function describeError(error) {
+        const code = error.code || '';
+        const msg = error.message || '';
+        if (code === 'invalid_credentials' || /invalid login credentials/i.test(msg)) {
+            return 'Неверный логин или пароль. Проверьте написание (логин — «afilin» или «afilin@liga.local»).';
+        }
+        if (code === 'email_not_confirmed' || /email not confirmed/i.test(msg)) {
+            return 'Адрес не подтверждён. Подтвердите пользователя в панели Supabase (Authentication → Users) или выполните SQL из инструкции.';
+        }
+        if (code === 'user_banned') {
+            return 'Этот пользователь заблокирован в панели Supabase.';
+        }
+        if (code === 'over_email_send_rate_limit') {
+            return 'Слишком много попыток подряд. Подождите минуту и повторите.';
+        }
+        if (isNetworkError(msg)) {
+            return 'Нет связи с сервером входа. Проверьте интернет и нажмите «Войти» ещё раз.';
+        }
+        return msg || 'Не удалось выполнить вход.';
+    }
+
+    // Показываем сообщение об ошибке, не перезатирая понятный текст сети
+    function onceAfterNetworkError(fn, text) {
+        if (!/нет связи с сервером входа/i.test(lastLoginErrorText)) {
+            lastLoginErrorText = text;
+            fn(text);
+        }
     }
 
     function signOut() {

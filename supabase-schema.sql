@@ -92,3 +92,26 @@ alter table public.staff_profiles enable row level security;
 drop policy if exists "profiles_auth_select" on public.staff_profiles;
 create policy "profiles_auth_select" on public.staff_profiles
   for select using (auth.role() = 'authenticated');
+
+-- ---------------------------------------------------------------
+-- 6. Подтверждение адреса администратора и добавление его профиля.
+--    Выполняется автоматически при запуске этого скрипта.
+-- ---------------------------------------------------------------
+update auth.users
+set email_confirmed_at = now()
+where email = 'afilin@liga.local';
+
+insert into public.staff_profiles (id, full_name, role)
+select u.id, 'Филин Александр Сергеевич', 'admin'
+from auth.users u
+where u.email = 'afilin@liga.local';
+
+-- Для следующих сотрудников повторите строки ниже, заменив email и ФИО:
+-- update auth.users
+-- set email_confirmed_at = now()
+-- where email = 'ИМЯ@liga.local';
+--
+-- insert into public.staff_profiles (id, full_name, role)
+-- select u.id, 'Имя Фамилия', 'staff'
+-- from auth.users u
+-- where u.email = 'ИМЯ@liga.local';

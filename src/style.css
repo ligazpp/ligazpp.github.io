@@ -6,12 +6,12 @@
   /* ===== Схема «Классика» (по умолчанию) — деловой синий ===== */
   --color-primary: #2163b5;
   --color-primary-dark: #194c8e;
-  --color-primary-light: rgba(33, 99, 181, 0.10);
+  --color-primary-light: rgba(33, 99, 181, 0.1);
 
   /* Фоны */
   --color-bg-main: #f4f7fc;
   --color-bg-dark: #14263c;
-  --color-bg-light:#ffffff;
+  --color-bg-light: #ffffff;
 
   /* Текст */
   --color-text-primary: #172436;
@@ -28,7 +28,12 @@
   --color-sidebar-divider: #e6ecf4;
 
   /* Градиенты */
-  --gradient-primary: linear-gradient(to right, #2163b5, #3f7fbf, var(--color-bg-light));
+  --gradient-primary: linear-gradient(
+    to right,
+    #2163b5,
+    #3f7fbf,
+    var(--color-bg-light)
+  );
 
   /* Акценты */
   --color-ok: #0f9d58;
@@ -42,8 +47,6 @@
   --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
-
-
 
 /* ============================================================================
    2. СБРОС И БАЗОВЫЕ СТИЛИ
@@ -62,7 +65,7 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: var(--color-text-primary);
@@ -95,7 +98,6 @@ img {
   outline-offset: 2px;
 }
 
-
 /* ============================================================================
    3. УТИЛИТАРНЫЕ КЛАССЫ
    ============================================================================ */
@@ -108,12 +110,14 @@ img {
 }
 
 /* Фоны */
-.bg-light { background-color: var(--color-bg-main); }
-.bg-dark { 
+.bg-light {
+  background-color: var(--color-bg-main);
+}
+.bg-dark {
   background-color: var(--color-bg-dark);
   color: var(--color-text-light);
 }
-.bg-primary { 
+.bg-primary {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
 }
@@ -135,7 +139,6 @@ img {
 [hidden] {
   display: none !important;
 }
-
 
 /* ============================================================================
    4. ОСНОВНАЯ СТРУКТУРА
@@ -227,7 +230,10 @@ img {
   font-size: 15px;
   white-space: nowrap;
   border-radius: 10px;
-  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .nav__link:hover {
@@ -293,7 +299,6 @@ img {
   text-decoration: underline;
 }
 
-
 /* ============================================================================
    5. КОМПОНЕНТЫ
    ============================================================================ */
@@ -315,7 +320,11 @@ img {
 }
 
 .banner--secondary {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-dark)
+  );
   color: var(--color-on-primary);
   display: flex;
   flex-direction: column;
@@ -471,14 +480,14 @@ img {
 }*/
 
 .card__link {
-text-decoration: none;
-color: inherit;
-display: block;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
-.card__link:hover{
-color: var(--color-primary);
-box-shadow: var(--shadow-lg);
+.card__link:hover {
+  color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
 }
 
 .card--guide:hover {
@@ -626,8 +635,8 @@ box-shadow: var(--shadow-lg);
 
 /* Список с галочками */
 .card__list--check .card__list-item {
-position: relative;
-list-style: none;
+  position: relative;
+  list-style: none;
 }
 
 .card__list--check .card__list-item i {
@@ -652,7 +661,7 @@ list-style: none;
 }
 
 .card__content--about ul li::before {
-  font-family: 'Font Awesome 6 Free';
+  font-family: "Font Awesome 6 Free";
   font-weight: 900;
   font-size: 16px;
   content: "\f058"; /* fa-circle-check */
@@ -702,7 +711,7 @@ list-style: none;
 
 .grid--2 {
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom:30px;
+  margin-bottom: 30px;
 }
 
 .grid--3 {
@@ -844,8 +853,6 @@ list-style: none;
 .document-link:hover,
 .document-links .link:hover {
   border-color: var(--color-primary);
-
-  
 }
 
 /* Ссылка-кнопка "Подробнее" */
@@ -885,7 +892,10 @@ list-style: none;
   border-radius: 50%;
   font-size: 11px;
   color: var(--color-primary);
-  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
 }
 
 .article-back:hover {
@@ -917,7 +927,6 @@ list-style: none;
   color: var(--color-text-secondary);
   margin-top: 8px;
   font-style: italic;
-
 }
 
 .page-header--secondary {
@@ -929,86 +938,86 @@ list-style: none;
 
 /* ----- Текст законов ----- */
 .law-content {
-margin: 10px 0 10px 0;
+  margin: 10px 0 10px 0;
 }
 
 /* Заголовки глав  */
 h1.law-chapter {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--color-primary-dark);
-    margin: 10px 0 10px 0;
-    padding: 15px 0 15px 0;
-    border-bottom: 2px solid var(--color-accent);
-    line-height: 1.5;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  margin: 10px 0 10px 0;
+  padding: 15px 0 15px 0;
+  border-bottom: 2px solid var(--color-accent);
+  line-height: 1.5;
 }
 
 /* Заголовки статей  */
 h2.law-article {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--color-primary-dark);
-    margin: 10px 0 10px 0;
-    padding: 12px 18px;
-    background-color: var(--color-bg-hover); /* Начальный фон как при hover */
-    border-left: 6px solid var(--color-border);
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-    background-color: var(--color-primary-light);
-    line-height: 1.5; 
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+  margin: 10px 0 10px 0;
+  padding: 12px 18px;
+  background-color: var(--color-bg-hover); /* Начальный фон как при hover */
+  border-left: 6px solid var(--color-border);
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  background-color: var(--color-primary-light);
+  line-height: 1.5;
 }
 
 /* Основной текст статей  */
 p.law-paragraph {
-    margin: 0px 0;
-    padding: 12px 18px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-    line-height: 1.5;
-    position: relative;
-    background-color: transparent;
-    color: var(--color-text-primary);
+  margin: 0px 0;
+  padding: 12px 18px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  line-height: 1.5;
+  position: relative;
+  background-color: transparent;
+  color: var(--color-text-primary);
 }
 
 /* Markdown-статьи: применяем те же стили к типовым тегам */
 .law-content.article-content h2 {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--color-primary-dark);
-    padding: 10px 0 10px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  padding: 10px 0 10px 0;
 }
 
 .law-content.article-content p {
-    margin: 5px 0;
-    line-height: 1.6;
-    color: var(--color-text-primary);
-    text-indent: 30px;
+  margin: 5px 0;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  text-indent: 30px;
 }
 
 .law-content.article-content ul {
-    margin: 10px 0;
-    padding-left: 22px;
-    line-height: 1.6;
-    color: var(--color-text-primary);
+  margin: 10px 0;
+  padding-left: 22px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
 }
 
 .law-content.article-content li {
-    margin-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 /* Дополнительные уровни текста законов */
 .law-content.article-content h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--color-primary-dark);
-    padding: 10px 0 5px 0;
-    border-bottom: 1px solid #1976d2;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  padding: 10px 0 5px 0;
+  border-bottom: 1px solid #1976d2;
 }
 
 .law-content.article-content hr {
-    border: none;
-    border-top: 1px solid var(--color-border);
-    margin: 20px 0;
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 20px 0;
 }
 
 /* Баннер актуальности на странице закона */
@@ -1032,365 +1041,380 @@ p.law-paragraph {
 }
 
 .law-banner {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 5px;
-    border-radius: 18px;
-    margin: 10px 0;
-    font-size: 12px;
-    line-height: 1;
-    width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 5px;
+  border-radius: 18px;
+  margin: 10px 0;
+  font-size: 12px;
+  line-height: 1;
+  width: fit-content;
 }
 
 .law-banner i {
-    font-size: 20px;
-    flex-shrink: 0;
-    margin-top: 1px;
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
 .law-banner--ok {
-    background-color: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    color: #14532d;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #14532d;
 }
 
 .law-banner--ok i {
-    color: var(--color-ok);
+  color: var(--color-ok);
 }
 
 .law-banner--update {
-    background-color: #fff7ed;
-    border: 1px solid #fed7aa;
-    color: #7c2d12;
+  background-color: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #7c2d12;
 }
 
 .law-banner--update i {
-    color: #ea580c;
+  color: #ea580c;
 }
 
 .law-banner__meta {
-    display: block;
-    font-size: 12px;
-    opacity: 0.75;
-    margin-top: 4px;
+  display: block;
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 4px;
 }
 
 /* Оглавление закона (один аккордеон на всё содержание) */
 .law-toc {
-    margin: 12px 0 6px;
+  margin: 12px 0 6px;
 }
 
 .law-toc summary {
-    cursor: pointer;
-    user-select: none;
-    list-style: none;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }
 
 .law-toc summary::-webkit-details-marker {
-    display: none;
+  display: none;
 }
 
 .law-toc summary::before {
-    content: "▸";
-    font-size: 14px;
-    line-height: 1;
-    color: var(--color-primary);
-    transition: transform 180ms ease;
-    flex-shrink: 0;
+  content: "▸";
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-primary);
+  transition: transform 180ms ease;
+  flex-shrink: 0;
 }
 
 .law-toc details[open] > summary::before {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .law-toc__acc > summary {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    padding-bottom: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  padding-bottom: 6px;
 }
 
 .law-toc__list {
-    list-style: none;
-    margin: 6px 0 0;
-    padding: 0;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
 }
 
 .law-toc__chapter {
-    margin: 0;
-    padding: 8px 0 4px;
+  margin: 0;
+  padding: 8px 0 4px;
 }
 
 .law-toc__chapter > a {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: none;
 }
 
 .law-toc__chapter ul {
-    list-style: none;
-    margin: 4px 0 0;
-    padding: 0;
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
 }
 
 .law-toc__chapter ul li {
-    padding: 2px 0 2px 18px;
+  padding: 2px 0 2px 18px;
 }
 
 .law-toc a {
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--color-primary);
-    text-decoration: none;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-primary);
+  text-decoration: none;
 }
 
 .law-toc a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Убираем рамку фокуса у заголовков-якорей при переходе по Содержанию */
 .law-content h2[id]:focus,
 .law-content h3[id]:focus {
-    outline: none;
+  outline: none;
 }
 
 /* Ссылка на официальный источник внизу страницы закона */
 .law-source {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 28px;
-    font-size: 13px;
-    font-style: italic;
-    color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 28px;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-text-secondary);
 }
 
 .law-source i {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .law-source a {
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .law-source a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* -----  ОБЗОРЫ СУДЕБНОЙ ПРАКТИКИ ВС РФ ----- */
 /* Красная строка у абзацев кейса (кроме первого абзаца-аннотации с номером) */
 .law-obzor .article-content p {
-    text-indent: 1.5em;
+  text-indent: 1.5em;
 }
 
 .law-obzor .article-content p:has(> strong:first-child) {
-    text-indent: 0;
+  text-indent: 0;
 }
 
 /* Судакт — ссылка на судебный акт в конце кейса (в стиле .law-source, но без ссылки) */
 .law-obzor .law-cite {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin: 10px 0 40px 0;
-    font-size: 13px;
-    font-style: italic;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 10px 0 40px 0;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
 }
 
 .law-obzor .law-cite i {
-    margin-top: 3px;
+  margin-top: 3px;
 }
 /* -----  АККОРДЕОН (FAQ) ----- */
 .faq__container {
-    display: grid;
-    grid-gap: 15px;
-    width: 100%;
+  display: grid;
+  grid-gap: 15px;
+  width: 100%;
 }
 
 /* Элемент аккордеона */
 .faq-item {
-    background-color: var(--color-bg-light);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s ease;
+  background-color: var(--color-bg-light);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
 }
-
 
 /* Заголовок вопроса (кликабельная область) */
 .faq-question {
-    width: 100%;
-    padding: 20px 25px;
-    background-color: var(--color-bg-main);
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 15px;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    user-select: none;
+  width: 100%;
+  padding: 20px 25px;
+  background-color: var(--color-bg-main);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  user-select: none;
 }
-
 
 .faq-question:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: -2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
 }
-
 
 /* Заголовок внутри вопроса */
 .faq-title {
-    font-size: 1.1rem;
-    margin: 0;
-    flex-grow: 1;
-    text-align: left;
-    color: var(--color-primary-dark);
-    font-weight: 600;
-    line-height: 1.4;
+  font-size: 1.1rem;
+  margin: 0;
+  flex-grow: 1;
+  text-align: left;
+  color: var(--color-primary-dark);
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 /* Иконка переключения */
 .faq-toggle {
-    margin-left: 0px;
-    transition: transform 0.3s ease;
-    color: var(--color-primary);
-    font-size: 1rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0; 
+  margin-left: 0px;
+  transition: transform 0.3s ease;
+  color: var(--color-primary);
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
 /* Поворот иконки при открытом вопросе */
 .faq-question[aria-expanded="true"] .faq-toggle {
-    transform: rotate(-90deg);
-    color: var(--color-primary);
+  transform: rotate(-90deg);
+  color: var(--color-primary);
 }
 
 /* Контейнер ответа */
 .faq-answer {
-    padding: 0;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out, opacity 0.2s ease-out, padding 0.3s ease-out;
-    background-color: var(--color-bg-light);
+  padding: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.3s ease-out,
+    opacity 0.2s ease-out,
+    padding 0.3s ease-out;
+  background-color: var(--color-bg-light);
 }
 
 /* Открытый ответ */
 .faq-answer:not([hidden]) {
-    padding: 20px 25px;
-    max-height: 500px; /* Достаточно для любого контента */
-    opacity: 1;
-    transition: max-height 0.5s ease-in, opacity 0.3s ease-in, padding 0.3s ease-in;
+  padding: 20px 25px;
+  max-height: 500px; /* Достаточно для любого контента */
+  opacity: 1;
+  transition:
+    max-height 0.5s ease-in,
+    opacity 0.3s ease-in,
+    padding 0.3s ease-in;
 }
 
 /* Скрытый ответ (альтернатива hidden атрибуту) */
 .faq-answer[hidden] {
-    display: none; /* Полностью скрываем из DOM */
+  display: none; /* Полностью скрываем из DOM */
 }
 
 /* Контент ответа */
 .faq-answer p {
-    margin-bottom: 15px;
-    line-height: 1.6;
-    color: var(--color-text-primary);
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
 }
 
 .faq-answer p:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 /* Списки в ответах */
 .faq-list {
-    margin: 15px 0 0 20px;
-    padding: 0;
-    list-style-type: disc;
+  margin: 15px 0 0 20px;
+  padding: 0;
+  list-style-type: disc;
 }
 
 .faq-list li {
-    margin-bottom: 8px;
-    line-height: 1.5;
-    color: var(--color-text-primary);
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
 }
 
 .faq-list li:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 /* Примечания и выделения */
 .faq-note {
-    margin-top: 15px;
-    padding: 12px 15px;
-    background-color: var(--color-bg-light);
-    border-left: 4px solid var(--color-primary);
-    border-radius: 0 8px 8px 0;
-    font-size: 0.95rem;
+  margin-top: 15px;
+  padding: 12px 15px;
+  background-color: var(--color-bg-light);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
 }
 
 .faq-note strong {
-    color: var(--color-primary, #1976d2);
+  color: var(--color-primary, #1976d2);
 }
 
 /* Анимация появления при загрузке */
 @keyframes faqFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .faq-item {
-    animation: faqFadeIn 0.5s ease forwards;
+  animation: faqFadeIn 0.5s ease forwards;
 }
 
 /* Задержки анимации для каждого элемента */
-.faq-item:nth-child(1) { animation-delay: 0.1s; }
-.faq-item:nth-child(2) { animation-delay: 0.2s; }
-.faq-item:nth-child(3) { animation-delay: 0.3s; }
-.faq-item:nth-child(4) { animation-delay: 0.4s; }
-.faq-item:nth-child(5) { animation-delay: 0.5s; }
-.faq-item:nth-child(6) { animation-delay: 0.6s; }
+.faq-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.faq-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.faq-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.faq-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.faq-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.faq-item:nth-child(6) {
+  animation-delay: 0.6s;
+}
 
 /* Мобильная адаптация */
 @media (max-width: 768px) {
-    .faq-question {
-        padding: 16px 20px;
-    }
-    
-    .faq-title {
-        font-size: 1rem;
-        padding-right: 10px;
-    }
-    
-    .faq-answer:not([hidden]) {
-        padding: 16px 20px;
-    }
-    
-    .faq-toggle {
-        margin-left: 10px;
-        font-size: 0.8rem;
-    }
+  .faq-question {
+    padding: 16px 20px;
+  }
+
+  .faq-title {
+    font-size: 1rem;
+    padding-right: 10px;
+  }
+
+  .faq-answer:not([hidden]) {
+    padding: 16px 20px;
+  }
+
+  .faq-toggle {
+    margin-left: 10px;
+    font-size: 0.8rem;
+  }
 }
 
 /* ----- Кнопка "Наверх" ----- */
@@ -1428,7 +1452,6 @@ p.law-paragraph {
   box-shadow: var(--shadow-lg);
 }
 
-
 /* ============================================================================
    6. АНИМАЦИИ
    ============================================================================ */
@@ -1447,7 +1470,6 @@ p.law-paragraph {
 .content-loaded {
   animation: fadeIn 0.5s ease;
 }
-
 
 /* ============================================================================
    7. АДАПТИВНОСТЬ
@@ -1528,28 +1550,74 @@ p.law-paragraph {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
+
   .banner {
     padding: 40px 24px;
   }
-  
-  .banner__title { font-size: 28px; }
-  .banner__text { font-size: 16px; }
-  .section { padding: 15px; }
-  .section__title { font-size: 18px; }
-  .section__title-icon { width: 36px; height: 36px; font-size: 16px; }
-  .card__header { padding: 16px; gap: 12px; }
-  .card__icon { width: 40px; height: 40px; font-size: 18px; }
-  .card__content { padding: 16px; }
-  .card__footer { padding: 12px 16px; }
-  .card__list-question--faq { padding: 16px; gap: 12px; }
-  .card__list-answer--faq { padding: 0 16px 16px 44px; }
-  .grid-item { padding: 16px; }
-  .grid-item__icon { width: 36px; height: 36px; font-size: 16px; }
-  .grid-item__title { font-size: 15px; }
-  .grid-item__text { font-size: 13px; }
-  .footer__links { flex-direction: column; gap: 12px; align-items: center; }
-  .scroll-top-btn { width: 44px; height: 44px; font-size: 18px; }
+
+  .banner__title {
+    font-size: 28px;
+  }
+  .banner__text {
+    font-size: 16px;
+  }
+  .section {
+    padding: 15px;
+  }
+  .section__title {
+    font-size: 18px;
+  }
+  .section__title-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  .card__header {
+    padding: 16px;
+    gap: 12px;
+  }
+  .card__icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  .card__content {
+    padding: 16px;
+  }
+  .card__footer {
+    padding: 12px 16px;
+  }
+  .card__list-question--faq {
+    padding: 16px;
+    gap: 12px;
+  }
+  .card__list-answer--faq {
+    padding: 0 16px 16px 44px;
+  }
+  .grid-item {
+    padding: 16px;
+  }
+  .grid-item__icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  .grid-item__title {
+    font-size: 15px;
+  }
+  .grid-item__text {
+    font-size: 13px;
+  }
+  .footer__links {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .scroll-top-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
 }
 
 /* Mobile */
@@ -1559,125 +1627,123 @@ p.law-paragraph {
     font-size: 16px;
   }
 
-  
   .logo__img {
     width: 32px;
     height: 32px;
   }
-  
+
   /* Banner */
   .banner {
     padding: 30px 16px;
   }
-  
+
   .banner__title {
     font-size: 24px;
   }
-  
+
   .banner__text {
     font-size: 15px;
   }
-  
+
   .banner__actions {
     flex-direction: column;
   }
-  
+
   /* Section */
   .section {
     padding: 20px 16px;
   }
-  
+
   .section__title {
     flex-wrap: wrap;
   }
-  
+
   /* Cards */
 
   .card__content--about {
-  padding: 20px 20px;
-}
+    padding: 20px 20px;
+  }
   .card--service .card__header {
     flex-direction: column;
   }
-  
+
   .card__icon {
     margin-bottom: 4px;
   }
-  
+
   .card__list--check .card__list-item {
     gap: 8px;
   }
-  
+
   /* Grid Items */
 
-  
   .grid-item__icon {
     margin-bottom: 8px;
   }
-  
+
   .grid-item__note {
     align-self: flex-start;
   }
-  
+
   /* FAQ */
   .card__list-question--faq {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .card__list-toggle-icon {
     align-self: flex-end;
   }
-  
+
   .card__list-answer--faq {
     padding: 0 16px 16px 16px;
   }
-  
+
   /* Documents */
   .document-links {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .document-link {
     justify-content: center;
   }
-  
+
   /* Page Header */
   .page-header__title {
     font-size: 20px;
   }
-  
+
   .page-header__subtitle {
     font-size: 14px;
   }
-  
+
   /* Law Text */
   .law-chapter {
     font-size: 18px;
   }
-  
+
   .law-article {
     font-size: 16px;
     padding: 10px 12px;
   }
-  
+
   .law-paragraph {
     font-size: 14px;
   }
-  
+
   /* Button */
   .btn {
     width: 100%;
     justify-content: center;
     padding: 14px 24px;
   }
-  
+
   .btn--large {
     padding: 16px 28px;
     font-size: 16px;
   }
-  
+
   /* Scroll Button */
   .scroll-top-btn {
     width: 40px;
@@ -1720,7 +1786,9 @@ p.law-paragraph {
   border-radius: 10px;
   color: var(--color-text-secondary);
   font-size: 20px;
-  transition: background 150ms ease, color 150ms ease;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
 }
 
 .staff-link:hover {
@@ -1816,7 +1884,7 @@ p.law-paragraph {
   color: var(--color-text-secondary);
 }
 
-/* Экран входа */
+/* Экран входа (окно в стиле macOS) */
 .staff-login {
   display: flex;
   justify-content: center;
@@ -1825,38 +1893,46 @@ p.law-paragraph {
 
 .staff-card--login {
   width: 100%;
-  max-width: 420px;
-  padding: 28px;
-  text-align: center;
+  max-width: 280px;
+  padding: 10px;
+  text-align: left;
 }
 
-.staff-login__icon {
+/* Три кружочка управления окном */
+.staff-login__traffic {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.staff-login__dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.staff-login__dot--close { background: #ff5f57; }
+.staff-login__dot--mini  { background: #febc2e; }
+.staff-login__dot--zoom  { background: #28c840; }
+
+.staff-login__dot--close a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 14px;
-  border-radius: 16px;
-  background: var(--color-sidebar-active-bg);
-  color: var(--color-primary);
-  font-size: 26px;
+  width: 100%;
+  height: 100%;
+  color: #5a1714;
+  font-size: 10px;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s;
 }
 
-.staff-login__title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-text-primary);
-}
-
-.staff-login__subtitle {
-  margin-top: 4px;
-  font-size: 14px;
-  color: var(--color-text-secondary);
-}
+.staff-login__dot--close a:hover { opacity: 1; }
 
 .staff-login__form {
-  margin-top: 18px;
+  margin-top: 2px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1944,7 +2020,9 @@ p.law-paragraph {
   border: 1px solid var(--color-border);
   border-radius: 10px;
   background: var(--color-bg-light);
-  transition: border-color 150ms ease, box-shadow 150ms ease;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .staff-file:hover {
@@ -2027,7 +2105,9 @@ p.law-paragraph {
   background: transparent;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
 }
 
 .staff-file__delete:hover {
@@ -2073,7 +2153,9 @@ p.law-paragraph {
   box-shadow: var(--shadow-lg);
   opacity: 0;
   transform: translateX(30px);
-  transition: opacity 250ms ease, transform 250ms ease;
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
 }
 
 .staff-toast--show {
