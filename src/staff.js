@@ -110,6 +110,15 @@
         return (user.email || '').split('@')[0] || 'Сотрудник';
     }
 
+    function showLoginError(message) {
+        if (loginError) {
+            const icon = loginError.querySelector('i');
+            if (icon) icon.remove();
+            loginError.textContent = message || 'Неверный логин или пароль.';
+            loginError.hidden = false;
+        }
+    }
+
     function signIn() {
         if (!supabase) return;
         const raw = (loginUser.value || '').trim();
@@ -119,15 +128,32 @@
         supabase.auth.signInWithPassword({ email, password: loginPass.value || '' })
             .then(({ error }) => {
                 if (error) {
-                    loginError.hidden = false;
+                    // Показываем понятную причину вместо общего сообщения
+                    const code = error.code || '';
+                    const msg = error.message || '';
+                    let text;
+                    if (code === 'invalid_credentials' || /invalid login credentials/i.test(msg)) {
+                        text = 'Неверный логин или пароль. Проверьте написание (логин — «afilin» или «afilin@liga.local»).';
+                    } else if (code === 'email_not_confirmed' || /email not confirmed/i.test(msg)) {
+                        text = 'Адрес не подтверждён. Подтвердите пользователя в панели Supabase (Authentication → Users) или выполните SQL из инструкции.';
+                    } else if (code === 'user_banned') {
+                        text = 'Этот пользователь заблокирован в панели Supabase.';
+                    } else if (code === 'over_email_send_rate_limit') {
+                        text = 'Слишком много попыток подряд. Подождите минуту и повторите.';
+                    } else if (msg) {
+                        text = msg;
+                    } else {
+                        text = 'Не удалось выполнить вход.';
+                    }
+                    showLoginError(text);
                 } else {
-                    loginError.hidden = true;
+                    if (loginError) loginError.hidden = true;
                     loginUser.value = '';
                     loginPass.value = '';
                 }
             })
-            .catch(() => {
-                loginError.hidden = false;
+            .catch((err) => {
+                showLoginError((err && err.message) || 'Сбой при подключении к серверу входа.');
             });
     }
 
