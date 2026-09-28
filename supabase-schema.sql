@@ -10,14 +10,19 @@
 --    (Dashboard → Storage → New bucket, name: staff, public: НЕ включать).
 -- ---------------------------------------------------------------
 create table if not exists public.staff_files (
-    id          uuid primary key default gen_random_uuid(),
-    name        text not null,
-    size_bytes  bigint not null default 0,
-    author      text not null default 'Сотрудник',
-    storage_path text not null,
-    file_type   text,
-    created_at  timestamptz not null default now()
+    id             uuid primary key default gen_random_uuid(),
+    name           text not null,
+    size_bytes     bigint not null default 0,
+    author         text not null default 'Сотрудник',
+    storage_path   text not null,
+    file_type      text,
+    download_count bigint not null default 0,
+    created_at     timestamptz not null default now()
 );
+
+-- Если таблица уже была создана раньше — добавляем счётчик скачиваний
+alter table public.staff_files
+    add column if not exists download_count bigint not null default 0;
 
 -- ---------------------------------------------------------------
 -- 2. Пользователи живут в Supabase Auth (аутентификация), а не в таблице.

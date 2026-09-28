@@ -19,10 +19,6 @@
     // Домен почты по умолчанию: вход по логину превращается в «логин@liga.local»
     const EMAIL_DOMAIN = '@liga.local';
 
-    const STATUS_OK = 'ok';
-    const STATUS_ERROR = 'error';
-    const STATUS_OFFLINE = 'offline';
-
     // Ключ localStorage с датой последнего визита для бейджа «Новый файл»
     const LAST_VISIT_KEY = 'staffLastVisit';
 
@@ -40,8 +36,6 @@
     const logoutBtn = document.getElementById('staffLogout');
     const userLabel = document.getElementById('staffUserLabel');
 
-    const statusEl = document.getElementById('staffStatus');
-    const statusText = document.getElementById('staffStatusText');
     const btnPick = document.getElementById('staffFilePick');
     const fileInput = document.getElementById('staffFileInput');
     const fileListEl = document.getElementById('staffFileList');
@@ -52,14 +46,11 @@
     // ---------------------------------------------------------------
     function initSupabase() {
         if (typeof window.supabase === 'undefined') {
-            setStatus(STATUS_OFFLINE, 'Библиотека supabase-js не загружена.');
+            showToast('Библиотека supabase-js не загрузилась. Обновите страницу.', 'error');
             return;
         }
         if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-            setStatus(
-                STATUS_OFFLINE,
-                'Подключение к хранилищу не настроено. Заполните SUPABASE_URL и SUPABASE_ANON_KEY в staff.js.'
-            );
+            showToast('Нет данных для подключения к хранилищу (ключи в staff.js).', 'error');
             return;
         }
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -88,8 +79,9 @@
         if (loggedIn) {
             currentUserName = await fetchDisplayName(session.user);
             if (userLabel) userLabel.textContent = `Вы вошли как: ${currentUserName}`;
-            // Подключаемся к хранилищу и загружаем файлы
-            await checkConnection();
+            // Включаем кнопку загрузки и загружаем файлы
+            setReady(true);
+            await loadFiles();
         } else {
             currentUserName = 'Сотрудник';
         }
@@ -212,53 +204,8 @@
     // ---------------------------------------------------------------
     // Подключение к Supabase (таблицы/файлы)
     // ---------------------------------------------------------------
-    async function checkConnection() {
-        try {
-            const { error } = await supabase.from('staff_files').select('id').limit(1);
-            if (error) throw error;
-            setStatus(STATUS_OK, 'Хранилище подключено. Можно обмениваться файлами.');
-            setReady(true);
-            await loadFiles();
-        } catch (err) {
-            setStatus(
-                STATUS_ERROR,
-                `Не удалось подключиться к хранилищу: ${err.message || err}. Проверьте ключи в staff.js и выполните supabase-schema.sql.`
-            );
-        }
-    }
-
-    // ---------------------------------------------------------------
-    // Вспомогательные функции
-    // ---------------------------------------------------------------
-    function setStatus(state, message) {
-        statusEl.dataset.state = state;
-        statusText.textContent = message;
-    }
-
     function setReady(ready) {
         if (btnPick) btnPick.disabled = !ready;
-    }
-
-    function formatBytes(bytes) {
-        if (!bytes) return '';
-        const units = ['Б', 'КБ', 'МБ', 'ГБ'];
-        let value = bytes;
-        let unit = 0;
-        while (value >= 1024 && unit < units.length - 1) {
-            value /= 1024;
-            unit += 1;
-        }
-        return `${value.toFixed(value >= 100 ? 0 : 1)} ${units[unit]}`;
-    }
-
-    function formatDate(value, withTime) {
-        if (!value) return '';
-        const d = new Date(value);
-        if (Number.isNaN(d.getTime())) return String(value);
-        const date = d.toLocaleDateString('ru-RU');
-        if (!withTime) return date;
-        const time = d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-        return `${date}, ${time}`;
     }
 
     function escapeHtml(text) {
@@ -311,16 +258,14 @@
                 li.innerHTML = `
                     <div class="staff-file__icon"><i class="fas fa-file"></i></div>
                     <div class="staff-file__info">
-                        <div class="staff-file__name">${escapeHtml(file.name)}</div>
+                        <div class="staff-file__name">${escapeHtml(file.name)}${isNew ? ' <span class="staff-file__badge">Новый' : ''}${isNew ? '</span>' : ''}</div>
                         <div class="staff-file__meta">
-                            ${escapeHtml(file.author || 'Сотрудник')} ·
-                            ${formatBytes(file.size_bytes)} ·
-                            ${formatDate(file.created_at, true)}
-                            ${isNew ? '<span class="staff-file__badge">Новый' : ''}${isNew ? '</span>' : ''}
+                            <span class="staff-file__count">Скачано: ${Number(file.download_count || 0)}</span>
+                            <span class="staff-file__author">${escapeHtml(file.author || 'Сотрудник')}</span>
                         </div>
                     </div>
                     <div class="staff-file__actions">
-                        <button type="button" class="btn btn--small btn--outline btn--download" data-path="${escapeHtml(file.storage_path)}" data-name="${escapeHtml(file.name)}">
+                        <button type="button" class="btn btn--small btn--outline btn--download" data-path="${escapeHtml(file.storage_path)}" data-name="${escapeHtml(file.name)}" data-id="${file.id}">
                             <i class="fas fa-download"></i> Скачать
                         </button>
                         <button type="button" class="staff-file__delete" data-id="${file.id}" title="Удалить файл" aria-label="Удалить файл">
@@ -328,17 +273,12 @@
                         </button>
                     </div>`;
                 fileListEl.appendChild(li);
-
-                // Уведомляем о новом файле
-                if (isNew && index === 0) {
-                    showToast(`Новый файл: «${file.name}»`, 'success');
-                }
             });
 
             // Новая дата последнего визита — «новизна» сохранится лишь до следующего визита
             localStorage.setItem(LAST_VISIT_KEY, String(now));
         } catch (err) {
-            setStatus(STATUS_ERROR, `Ошибка загрузки списка файлов: ${err.message || err}`);
+            showToast(`Ошибка загрузки списка файлов: ${err.message || err}`, 'error');
         }
     }
 
@@ -369,8 +309,6 @@
                     file_type: file.type || null
                 });
                 if (dbError) throw dbError;
-
-                showToast(`Файл «${file.name}» загружен.`, 'success');
             } catch (err) {
                 showToast(`Не удалось загрузить «${file.name}»: ${err.message}.`, 'error');
                 return;
@@ -380,7 +318,7 @@
         loadFiles();
     }
 
-    function downloadFile(path, name) {
+    function downloadFile(path, name, id) {
         (async () => {
             try {
                 // Скачиваем через download() — браузер вернёт blob,
@@ -395,6 +333,23 @@
                 a.click();
                 a.remove();
                 setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+                // Увеличиваем счётчик «Скачано» (без перезагрузки списка)
+                if (id) {
+                    const countEl = fileListEl.querySelector(`[data-id="${id}"] .staff-file__count`);
+                    if (countEl) {
+                        const next = Number((countEl.textContent.match(/\d+/) || [0])[0]) + 1;
+                        countEl.textContent = `Скачано: ${next}`;
+                    }
+                    supabase.from('staff_files').select('download_count').eq('id', id).maybeSingle()
+                        .then(({ data: row, error: rErr }) => {
+                            if (rErr || !row) return;
+                            supabase.from('staff_files')
+                                .update({ download_count: Number(row.download_count || 0) + 1 })
+                                .eq('id', id);
+                        })
+                        .catch(() => {});
+                }
             } catch (err) {
                 showToast(`Не удалось скачать файл: ${err.message}`, 'error');
             }
@@ -425,7 +380,7 @@
         fileListEl.addEventListener('click', (e) => {
             const dl = e.target.closest('.btn--download');
             if (dl) {
-                downloadFile(dl.dataset.path, dl.dataset.name);
+                downloadFile(dl.dataset.path, dl.dataset.name, dl.dataset.id);
                 return;
             }
             const del = e.target.closest('.staff-file__delete');

@@ -1796,65 +1796,95 @@ p.law-paragraph {
   color: var(--color-primary);
 }
 
-/* Строка статуса подключения */
-.staff-status {
+/* Секция страницы */
+.section--staff {
+  padding-top: 24px;
+}
+
+/* Шапка раздела: заголовок и кнопка «Выйти» справа */
+.staff-topbar {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  margin: 4px 0 16px;
-  border-radius: 10px;
-  font-size: 13px;
-  line-height: 1.4;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
 }
 
-.staff-status i {
-  font-size: 15px;
-  flex-shrink: 0;
+.staff-topbar__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-primary);
 }
 
-.staff-status--initial {
-  background: var(--color-sidebar-active-bg);
+.staff-topbar__title i {
+  color: var(--color-primary);
+}
+
+.staff-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.staff-user {
+  font-weight: 600;
   color: var(--color-text-secondary);
+  font-size: 13px;
 }
 
-.staff-status--ok {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #14532d;
+/* Окно-карточка в стиле macOS */
+.staff-window {
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-bg-light);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
 }
 
-.staff-status--ok i {
-  color: var(--color-ok);
+.staff-window--files {
+  max-width: 55%;
 }
 
-.staff-status--error {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #7f1d1d;
+.staff-window__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 
-.staff-status--error i {
-  color: #dc2626;
+.staff-window__traffic {
+  display: flex;
+  gap: 8px;
 }
 
-.staff-status--offline {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
-  color: #78350f;
+.staff-window__traffic .staff-login__dot {
+  width: 12px;
+  height: 12px;
+  cursor: default;
 }
 
-.staff-status--offline i {
-  color: #d97706;
+.staff-window__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  user-select: none;
 }
 
-/* Секция страницы */
-.section--staff .page-header {
-  margin-bottom: 8px;
-}
-
-.page-header .btn {
-  margin-top: 10px;
+.staff-window__body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .staff-card {
@@ -1980,11 +2010,6 @@ p.law-paragraph {
   color: #dc2626;
 }
 
-.staff-user {
-  font-weight: 600;
-  color: var(--color-primary);
-}
-
 /* Список файлов */
 .file-list {
   list-style: none;
@@ -2073,14 +2098,24 @@ p.law-paragraph {
 
 .staff-file__badge {
   display: inline-block;
+  margin-left: 6px;
   padding: 1px 8px;
   border-radius: 999px;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--color-ok);
+  color: #fff;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.4px;
+  vertical-align: middle;
+}
+
+.staff-file__count {
+  font-weight: 600;
+}
+
+.staff-file__author {
+  opacity: 0.9;
 }
 
 .staff-file__actions {
@@ -2113,25 +2148,6 @@ p.law-paragraph {
 .staff-file__delete:hover {
   background: #fef2f2;
   color: #dc2626;
-}
-
-/* Пояснение под блоками */
-.staff-note {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  background: var(--color-sidebar-active-bg);
-  color: var(--color-text-secondary);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.staff-note i {
-  color: var(--color-primary);
-  flex-shrink: 0;
 }
 
 /* Всплывающие уведомления (тосты) */

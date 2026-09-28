@@ -43,39 +43,33 @@ noindex: true
 
         <!-- Рабочая область (скрыта, пока не выполнен вход) -->
         <div class="staff-content" id="staffContent" hidden>
-            <header class="page-header">
-                <h1 class="page-header__title">
-                    <i class="fas fa-users"></i> Служебная страница
-                </h1>
-                <p class="page-header__subtitle">
-                    Обмен файлами для сотрудников Лиги.
+            <!-- Шапка раздела -->
+            <div class="staff-topbar">
+                <h2 class="staff-topbar__title">
+                    <i class="fas fa-cloud"></i> Облачное хранилище
+                </h2>
+                <div class="staff-topbar__actions">
                     <span class="staff-user" id="staffUserLabel"></span>
-                </p>
-                <p>
                     <button type="button" class="btn btn--small btn--outline" id="staffLogout">
                         <i class="fas fa-right-from-bracket"></i> Выйти
                     </button>
-                </p>
-            </header>
-
-            <!-- Строка статуса подключения к Supabase -->
-            <p class="staff-status staff-status--initial" id="staffStatus" data-state="initial">
-                <i class="fas fa-circle-info"></i>
-                <span id="staffStatusText">Проверяю подключение к хранилищу…</span>
-            </p>
-
-            <div class="card staff-card staff-card--files">
-                <div class="card__header">
-                    <div class="card__icon">
-                        <i class="fas fa-folder-open"></i>
-                    </div>
-                    <h2 class="card__title">Файлы</h2>
                 </div>
+            </div>
 
-                <div class="staff-card__body">
+            <!-- Окно файлов в стиле macOS -->
+            <div class="staff-window staff-window--files">
+                <div class="staff-window__bar">
+                    <div class="staff-window__traffic" aria-hidden="true">
+                        <span class="staff-login__dot staff-login__dot--close"></span>
+                        <span class="staff-login__dot staff-login__dot--mini"></span>
+                        <span class="staff-login__dot staff-login__dot--zoom"></span>
+                    </div>
+                    <span class="staff-window__title">Файлы</span>
+                </div>
+                <div class="staff-window__body">
                     <div class="staff-toolbar">
                         <button type="button" class="btn btn--primary btn--small" id="staffFilePick" disabled>
-                            <i class="fas fa-upload"></i> Загрузить файл
+                            <i class="fas fa-upload"></i> Отправить файл
                         </button>
                         <input type="file" id="staffFileInput" multiple hidden>
                         <span class="staff-toolbar__hint" id="staffFileHint"></span>
@@ -89,11 +83,6 @@ noindex: true
                     </ul>
                 </div>
             </div>
-
-            <p class="staff-note">
-                <i class="fas fa-lock"></i>
-                Это служебная страница для сотрудников Лиги. Доступ ограничен списком пользователей.
-            </p>
         </div>
 
     </div>
