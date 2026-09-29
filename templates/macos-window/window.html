@@ -1,0 +1,59 @@
+<!--
+  Шаблон «Окно в стиле macOS» — пример разметки.
+
+  Использование: скопируйте блоки ниже на свою страницу,
+  замените заголовки и содержимое .window__body на свои.
+  Стили — в window.css в этой же папке.
+-->
+
+<!-- 1. Шапка раздела: заголовок слева, действия справа -->
+<div class="window-topbar">
+  <h2 class="window-topbar__title">
+    <i class="fas fa-users"></i> Название раздела
+  </h2>
+  <div class="window-topbar__actions">
+    <button type="button" class="btn btn--small btn--outline">Действие</button>
+  </div>
+</div>
+
+<!-- 2. Два окна рядом: большое (2/3) и маленькое (1/3) -->
+<div class="window-layout">
+
+  <!-- Большое окно -->
+  <div class="window window--wide">
+    <div class="window__bar">
+      <div class="window__traffic" aria-hidden="true">
+        <span class="window__dot window__dot--close"></span>
+        <span class="window__dot window__dot--mini"></span>
+        <span class="window__dot window__dot--zoom"></span>
+      </div>
+      <span class="window__title">Название окна</span>
+    </div>
+    <div class="window__body">
+      <!-- Содержимое окна -->
+      <div class="window-section-title">Секция</div>
+      <p>Наполнение страницы.</p>
+    </div>
+  </div>
+
+  <!-- Маленькое окно -->
+  <div class="window window--side">
+    <div class="window__bar">
+      <div class="window__traffic" aria-hidden="true">
+        <span class="window__dot window__dot--close"></span>
+        <span class="window__dot window__dot--mini"></span>
+        <span class="window__dot window__dot--zoom"></span>
+      </div>
+      <span class="window__title">Информация</span>
+    </div>
+    <div class="window__body">
+      <p class="window__placeholder">Вспомогательная информация.</p>
+    </div>
+  </div>
+
+</div>
+
+<!--
+  3. Кружок «закрыть» можно сделать ссылкой на главную
+     (<span class="window__dot window__dot--close"><a href="/">×</a></span>).
+-->

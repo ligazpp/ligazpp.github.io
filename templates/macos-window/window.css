@@ -1,0 +1,152 @@
+/**
+ * Шаблон «Окно в стиле macOS».
+ *
+ * Откуда взят: из служебной страницы сотрудников (удалена в 2026).
+ * Куда применять: новые разделы сайта, где нужно аккуратное «окно»
+ * с заголовком и тремя кружочками управления (красный/жёлтый/зелёный).
+ *
+ * Как использовать:
+ *   1. Подключить этот файл в layout.njk после style.css
+ *      (или перенести нужные правила в style.css проекта).
+ *   2. Скопировать разметку из window.html в страницу.
+ *   3. Поправить заголовок окна и содержимое .window__body.
+ *
+ * Стили зависят от CSS-переменных проекта:
+ *   --color-border, --color-bg-light, --color-bg, --color-text-secondary,
+ *   --color-primary, --color-border-hover, --shadow-md.
+ */
+.window {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-bg-light);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* Строка заголовка окна */
+.window__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.window__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  user-select: none;
+}
+
+/* Три кружочка управления окном */
+.window__traffic {
+  display: flex;
+  gap: 8px;
+}
+
+.window__dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.window__dot--close { background: #ff5f57; }
+.window__dot--mini  { background: #febc2e; }
+.window__dot--zoom  { background: #28c840; }
+
+/* В маленьких окнах (например, во входных формах) кружочки меньше */
+.window--small .window__traffic .window__dot {
+  width: 12px;
+  height: 12px;
+  cursor: default;
+}
+
+/* Кружок «закрыть» при наведении показывает крестик */
+.window__dot--close a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #5a1714;
+  font-size: 10px;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.window__dot--close a:hover { opacity: 1; }
+
+/* Содержимое окна */
+.window__body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Заглушка в пустом окне */
+.window__placeholder {
+  margin: 0;
+  padding: 24px 10px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+/* Заголовок-разделитель секции внутри окна */
+.window-section-title {
+  margin: 6px 0 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* Шапка раздела с заголовком и действиями справа */
+.window-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.window-topbar__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  padding-bottom: 12px;
+  border-bottom: 2px solid;
+  border-image: var(--gradient-primary) 1;
+}
+
+.window-topbar__title i {
+  color: var(--color-primary);
+}
+
+/* Два окна рядом: 2/3 и 1/3 (адаптивно складываются в столбик) */
+.window-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .window-layout {
+    grid-template-columns: 1fr;
+  }
+}
